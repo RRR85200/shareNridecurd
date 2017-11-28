@@ -1,0 +1,33 @@
+<div class="row>">
+ 
+    <div class="row col-md-8">
+        <h3>Login to Try ShareNride app</h3>
+        <form (ngSubmit)="onSignIn(user)" #f="ngForm">
+              <div class="form-group">
+              <label class="form-group" for="email">Mail </label>
+              <input type="email" class="form-control"
+              name="email"
+              [(ngModel)]="user.email"   required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              #email="ngModel">  
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                
+                          <div *ngIf="email.errors.required">
+                            Email is required.
+                          </div>
+                
+                          <div *ngIf="email.errors.pattern">
+                            Should be a valid email with @org.com.
+                          </div>
+                        </div>            
+              <label class="form-group" for="password">Enter your passsword </label>
+              <input type="password" id="confirmpassword" name="confirmpassword"
+              class="form-control" ngModel [(ngModel)]="user.password" required>
+              <br>
+            <button class="btn btn-primary" >Sign In</button>         
+
+            </div>
+        </form>
+        <p>Not yet Registed ..!! Sign Up To try Share N Ride</p>
+        <a href="#" class="btn btn-primary">SignUp</a>
+    </div>
+  </div>

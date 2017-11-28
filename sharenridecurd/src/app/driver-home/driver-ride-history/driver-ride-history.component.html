@@ -1,0 +1,282 @@
+<div class="container">
+    <div class="row">
+        <div>
+            <br>
+            <div class="alert alert-danger" role="alert" *ngIf="status === 'failure'">
+                {{successMsg}}
+            </div>
+            <div class="alert alert-success" role="alert" *ngIf="status === 'success'">
+                {{successMsg}}
+            </div>
+        </div>
+
+
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <h2>My Coupons </h2>
+                        <table>
+                            <tr>
+                                <th>
+                                    <p> Your current Coupon</p>
+                                </th>
+
+
+                            </tr>
+                            <tr *ngIf="noUserCoup">
+                                <div class="alert alert-danger" role="alert" *ngIf="noavailablerides">
+                                    No Coupon available ..! Buy Coupons and enjoy aweosme Deals on Rides..!
+                                </div>
+                            </tr>
+                            <tr *ngIf="!noUserCoup">
+                                <div class="col-md-3">
+                                    <label>Coupon Code</label>
+                                    <br>
+                                    <p>{{usercoupon.coupon_code}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Coupon Type</label>
+                                    <br>
+                                    <p>{{usercoupon.coupon_type}}% off</p>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Coupon Validity</label>
+                                    <br>
+                                    <p>{{usercoupon.coupon_validity}}</p>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label>No of rides</label>
+                                    <br>
+                                    <p>{{usercoupon.coupon_rides}}</p>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <label>Buy Coupons </label>
+                        <table class="table table-striped">
+                            <tr>
+                                Available Coupons.
+                            </tr>
+                            <br>
+
+                            <tr class="coupons-avil" *ngFor="let coopn of allcoupon">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Coupon Code</label>
+                                        <br>
+                                        <p>{{coopn.coupon_code}}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Coupon Type</label>
+                                        <br>
+                                        <p>{{coopn.coupon_type}}% off</p>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Coupon Validity</label>
+                                        <br>
+                                        <p>{{coopn.coupon_validity}}</p>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>No of rides</label>
+                                        <br>
+                                        <p>{{coopn.coupon_rides}}</p>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Coupon price</label>
+                                        <br>
+                                        <p>{{coopn.coupon_price}}</p>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br>
+                                        <br>
+                                        <button type="button" (click)="buyCoupon(coopn)" class="btn btn-warning">Buy</button>
+
+                                    </div>
+
+
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <label>My Driving History</label>
+        <div class="alert alert-warning" role="alert" *ngIf="noavailablerides">
+            No History available ...! post a ride ..!
+        </div>
+
+        <table class="table table-striped" *ngIf="!noavailablerides">
+
+            <tr>
+                <th>
+                    Ride_ID
+                </th>
+                <th>
+                    Origin
+                </th>
+                <th>
+                    Destination
+                </th>
+                <th>
+                    Rider Name
+                </th>
+                <th>
+                    Ride Time
+                </th>
+                <th>
+                    End Time
+                </th>
+                <th>
+                    Vehicle Model
+                </th>
+                <th>
+                    Vehicle Registration
+                </th>
+                <th>
+                    No of seats
+                </th>
+                <th>
+                    Price
+                </th>
+
+            </tr>
+
+
+            <tr *ngFor="let rds of  historyList">
+
+                <td>
+
+                    {{rds.ride_id}}
+                </td>
+                <td>
+
+                    {{rds.origin}}
+                </td>
+                <td>
+                    {{rds.destination}}
+                </td>
+                <td>
+                    {{rds.ride_rider_name}}
+                </td>
+                <td>
+                    {{rds.ridetime}}
+                </td>
+
+                <td>
+                    {{rds.rideendtime}}
+                </td>
+                <td>
+                    {{rds.carModel}}
+                </td>
+                <td>
+                    {{rds.carNumber}}
+                </td>
+                <td>
+                    {{rds.seats}}
+                </td>
+                <td>
+                    {{rds.price}}
+
+                </td>
+
+            </tr>
+        </table>
+
+
+        <label>My Personal History</label>
+        <div class="alert alert-warning" role="alert" *ngIf="noRiderrides">
+            No History available ...! Join or Request a ride ..!
+        </div>
+
+        <table class="table table-striped" *ngIf="!noRiderrides">
+
+            <tr>
+                <th>
+                    Ride_ID
+                </th>
+                <th>
+                    Origin
+                </th>
+                <th>
+                    Destination
+                </th>
+                <th>
+                    Driver Name
+                </th>
+                <th>
+                    Ride Time
+                </th>
+                <th>
+                    End Time
+                </th>
+                <th>
+                    Vehicle Model
+                </th>
+                <th>
+                    Vehicle Registration
+                </th>
+                <th>
+                    No of seats
+                </th>
+                <th>
+                    Price
+                </th>
+
+            </tr>
+
+
+
+            <tr *ngFor="let rds of  riderhistoryList">
+
+                <td>
+
+                    {{rds.ride_id}}
+                </td>
+                <td>
+
+                    {{rds.origin}}
+                </td>
+                <td>
+                    {{rds.destination}}
+                </td>
+                <td>
+                    {{rds.ride_driver_name}}
+                </td>
+                <td>
+                    {{rds.ridetime}}
+                </td>
+
+                <td>
+                    {{rds.rideendtime}}
+                </td>
+                <td>
+                    {{rds.carModel}}
+                </td>
+                <td>
+                    {{rds.carNumber}}
+                </td>
+                <td>
+                    {{rds.seats}}
+                </td>
+                <td>
+                    {{rds.price}}
+
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</div>

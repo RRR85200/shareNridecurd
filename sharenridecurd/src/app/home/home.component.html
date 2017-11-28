@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <img class="carpool-img" src="../../assets/images/carpool-students.jpg">
+      </div>
+      <div class="col-md-6">
+        <app-signup *ngIf='!signInvalue' (signInValue)='showSignIn($event)'></app-signup>
+        <app-signin *ngIf='signInvalue'></app-signin>
+      </div>
+    </div>
+  </div>
+</div>

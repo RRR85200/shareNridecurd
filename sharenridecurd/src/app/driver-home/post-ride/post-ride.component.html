@@ -1,0 +1,274 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div *ngIf="hasCar" id="showcardetails">
+      <div class="col-md-12">
+        <h2 style="color:blue;">My Car</h2>
+        <div class="col-md-2">
+          <label>Company</label>
+          <p>{{userCar.company}}</p>
+        </div>
+        <div class="col-md-2">
+          <label>Model</label>
+          <p>{{userCar.model}}</p>
+        </div>
+        <div class="col-md-2">
+          <label>Year</label>
+          <p>{{userCar.year}}</p>
+        </div>
+        <div class="col-md-2">
+          <label>Max Capacity</label>
+          <p>{{userCar.seats}}</p>
+        </div>
+        <div class="col-md-2">
+          <label>Registration</label>
+          <p>{{userCar.vehicle_num}}</p>
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-warning" (click)="editCar()">Edit Car</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="statusUpdateCar === 'failure'">
+      {{successMsg}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="statusUpdateCar === 'success'">
+      {{successMsg}}
+    </div>
+  </div>
+  <div *ngIf="!isUpdateCar">
+    <form [formGroup]="updateCar" (ngSubmit)="UpdateCar()">
+
+      <div class="col-md-12">
+
+        <h2 style="color:blue;">Update Car car Details</h2>
+        <br>
+
+        <div class="col-md-2">
+          <br>
+          <label>Car Model</label>
+          <div class="form-group">
+            <input type="text" placeholder="Car Model" formControlName="model"   pattern="[a-zA-Z ]*" [(ngModel)]="userCar.model" id="model" class="form-control">
+          </div>
+        </div>
+
+
+        <div class="col-md-2">
+          <br>
+          <label>Car Maker</label>
+          <div class="form-group">
+            <input type="text" placeholder="Car Company" formControlName="company" [(ngModel)]="userCar.company" id="company" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <br>
+          <label>Year</label>
+          <div class="form-group">
+            <input type="number" placeholder="Make Year" formControlName="year"  min="1980" max="2020" [(ngModel)]="userCar.year" id="year" class="form-control">
+          </div>
+        </div>
+
+
+        <div class="col-md-2">
+          <br>
+          <label>No of Seats</label>
+          <div class="form-group">
+            <input type="number" placeholder="No of Seats" formControlName="seats" min="0" max="5" [(ngModel)]="userCar.seats" id="seats" class="form-control">
+          </div>
+        </div>
+
+
+        <div class="col-md-2">
+          <br>
+          <label>Registration Number</label>
+          <div class="form-group">
+            <input type="string" placeholder="Registration Number" formControlName="vehicleNum" [(ngModel)]="userCar.vehicle_num" id="vehicleNum"
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <br>
+          <div class="btn btn-group">
+            <br>
+            <button type="button" class="btn btn-warning" [disabled]="!updateCar.valid" type="submit">Update Car</button>
+          </div>
+        </div>
+      </div>
+      <br>
+
+
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="alert alert-danger" role="alert" *ngIf="statuscar === 'failure'">
+      {{successMsg}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="statuscar === 'success'">
+      {{successMsg}}
+    </div>
+  </div>
+
+  <div class="postCar" *ngIf="!hasCar">
+    <form [formGroup]="carDetails" (ngSubmit)="postCar()">
+
+      <div class="col-md-12">
+
+        <h2 style="color:blue;">Enter car Details</h2>
+        <br>
+
+        <div class="col-md-2">
+          <br>
+          <label>Car Model</label>
+          <div class="form-group">
+            <input type="text" placeholder="Car Model" formControlName="model" [(ngModel)]="car.model" id="model" class="form-control">
+          </div>
+        </div>
+
+
+        <div class="col-md-2">
+          <br>
+          <label>Car Maker</label>
+          <div class="form-group">
+            <input type="text" placeholder="Car Company" pattern="[a-zA-Z ]*" formControlName="company" [(ngModel)]="car.company" id="company" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <br>
+          <label>Year</label>
+          <div class="form-group">
+            <input type="number" placeholder="Make Year" min="1980" max="2020"  formControlName="year" [(ngModel)]="car.year" id="year" class="form-control">
+          </div>
+        </div>
+
+
+        <div class="col-md-2">
+          <br>
+          <label>No of Seats</label>
+          <div class="form-group">
+            <input type="number" placeholder="No of Seats"  min="0" max="5"  formControlName="seats" [(ngModel)]="car.seats" id="seats" class="form-control">
+          </div>
+        </div>
+
+
+        <div class="col-md-2">
+          <br>
+          <label>Registration Number</label>
+          <div class="form-group">
+            <input type="string" placeholder="Registration Number" formControlName="vehicleNum" [(ngModel)]="car.vehicle_num" id="vehicleNum"
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <br>
+          <div class="btn btn-group">
+            <br>
+            <button class="btn btn-primary" [disabled]="!carDetails.valid" type="submit">Save Car Details</button>
+          </div>
+        </div>
+      </div>
+      <br>
+
+
+    </form>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="row">
+
+    <div class="alert alert-danger" role="alert" *ngIf="status === 'failure'">
+      {{successMsg}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="status === 'success'">
+      {{successMsg}}
+    </div>
+  </div>
+
+  <form [formGroup]="postRideForm" (ngSubmit)="createRide()">
+
+    <div class="col-md-12">
+      <br>
+
+      <h2 style="color:blue;">Post a Ride and Share It</h2>
+      <br>
+
+      <div class="col-md-3">
+        <label>Ride Stating Location</label>
+        <div class="form-group">
+          <label class="center-block">Origin:
+            <select class="form-control"  name="origin" [(ngModel)]="postride.origin" formControlName="origin">
+              <option *ngFor="let destination of destinations" [value]="destination">{{destination}}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label>Destination</label>
+        <div class="form-group">
+          <label class="center-block">To:
+            <select class="form-control"  name="destination" formControlName="destination" [(ngModel)]="postride.destination" >
+              <option *ngFor="let destination of destinations" [value]="destination">{{destination}}</option>
+            </select>
+          </label>
+          <!-- <span  *ngIf='(postRideForm.get("postride.origin").value===postRideForm.get("postride.destination").value) &&
+          postRideForm.get("postride.origin").touched && postRideForm.get("postride.destination").touched' class='help-block'>
+              origin and destination cannot be same</span> -->
+        </div>
+        <!-- <div *ngIf="!postRideForm.get("origin").valid && !postRideForm.get("destination").valid && (postRideForm.get("origin").touched.value ==postRideForm.get("destination").touched.value) "  class="error-msg">Choose different destination</div> -->
+       
+      </div>
+
+      <div class="col-md-3">
+        <br>
+        <label>No of Seats</label>
+        <div class="form-group">
+          <input type="number" placeholder="No of Seats" min="0" max="5" formControlName="seats" [(ngModel)]="postride.seats" id="seats" class="form-control">
+        </div>
+    
+      </div>
+
+
+      <div class="col-md-3">
+        <br>
+        <label>Choose Start time</label>
+        <div class="form-group">
+          <input type="datetime-local" placeholder="Start Time" formControlName="date" [(ngModel)]="postride.ridedate" min="today" id="date" class="form-control">
+      
+        </div>
+      </div>
+   
+    <br>
+
+    <div class="row">
+
+      <div class="col-md-12">
+        <div class="col-md-6"></div>
+        <div class="col-md-3">
+          <label>Price/person</label>
+          <div class="form-group">
+            <input type="number" placeholder="Enter price/person" min="0"  max="70" formControlName="price" [(ngModel)]="postride.price" id="price" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <br>
+          <div class="btn btn-group">
+            <button class="btn btn-primary" [disabled]="(!postRideForm.valid)" type="submit">POST</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+  </form>
+
+</div>

@@ -1,0 +1,123 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <br>
+        <br>
+        <div class="alert alert-danger" role="alert" *ngIf="status === 'failure'">
+            {{successMsg}}
+        </div>
+        <div class="alert alert-success" role="alert" *ngIf="status === 'success'">
+            {{successMsg}}
+        </div>
+
+        <table class="table table-striped">
+
+            <tr>
+                <th>Costum Requested Rides</th>
+
+            </tr>
+            <tr>      
+                    <br>          
+                  <div class="alert alert-warning" role="alert" *ngIf="noavailablerides">                     
+                          No Costumn Requested Rides available Currently
+                        </div>
+          </tr>
+
+            <tr class="ride_details" *ngFor="let rds of  availableRides">
+
+                <td>
+                    <br>
+                    <br>
+                    <div class="container">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="RideID">Ride Id</label>
+                                    <br>
+                                    <p>{{rds.ride_id}}</p>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="Origin">Origin</label>
+                                    <br>
+                                    <p> {{rds.origin}}</p>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="Destination">Destination</label>
+                                    <br>
+                                    <p> {{rds.destination}}</p>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="postedby">Rider Name</label>
+                                    <br>
+                                    <p>{{rds.postedBy}}</p>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="mobile">Rider Contact</label>
+                                    <br>
+                                    <p> {{rds.mobile}}</p>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="mobile">No of passengers</label>
+                                    <br>
+                                    <p> {{rds.seats}}</p>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <br>
+
+                        <div class="col-md-12">
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="mobile">Ride Time</label>
+                                    <br>
+                                    <p> {{rds.date}}</p>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="pricee">Enter Price</label>
+                                    <br>
+                                    <input type="number" min="0"  max="50" #eprice name="price" [value]="rds.price">
+                                </div>
+
+                                <div class="col-md-2">
+
+                                </div>
+
+                                <div class="col-md-2">
+
+                                </div>
+
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="btn btn-group">
+                                        <button class="btn btn-primary" type="submit" *ngIf="rds.user_id!==currentUserID" (click)="acceptRide(rds,eprice.value)">Accept Ride</button>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        
+        
+    </div>
+</div>

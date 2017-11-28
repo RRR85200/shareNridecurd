@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+      <div class="alert alert-danger" role="alert" *ngIf="status === 'failure'">
+          {{successMsg}}
+      </div>
+      <div class="alert alert-success" role="alert" *ngIf="status === 'success'">
+          {{successMsg}}
+      </div>
+
+  </div>
+          <div class="col-md-12">
+ 
+             <form [formGroup]="requestRideForm" (ngSubmit)="requestRide()">
+                       
+                   <span>
+                         <div class="col-md-3">
+                   
+                   <div class="form-group">
+                     <br>
+                               <label class="center-block">From/Origin:
+                                 <select class="form-control" [(ngModel)]="requestride.source" formControlName="origin">
+                                   <option *ngFor="let origin of destinations"  [value]="origin">{{origin}}</option>
+                                 </select>
+                               </label>
+                    </div>
+                   </div>
+                   
+                   <div class="col-md-3">
+                    
+                    <div class="form-group">
+                      <br>
+                                <label class="center-block">To/ Destination:
+                                  <select class="form-control" formControlName="destination" [(ngModel)]="requestride.destination">
+                                    <option *ngFor="let destination of destinations"   [value]="destination">{{destination}}</option>
+                                  </select>
+                                </label>
+                     </div>
+                     
+                   </div>
+                   <div class="col-md-3">
+                     <br>
+                       <label>No of Seats</label>
+                       <div class="form-group">
+                     <input type="number" placeholder="No of Seats" min="1" max="5" formControlName="seats" [(ngModel)]="requestride.seats" id="seats" class="form-control">
+                   </div>
+                   </div>
+                   
+ 
+                   <div class="col-md-3">
+                     <br>
+                     <label>Choose Start time</label>
+                     <div class="form-group">
+                     <input type="datetime-local" placeholder="Start Time" formControlName="date" [(ngModel)]="requestride.ridedate" id="date" class="form-control">
+                   </div>
+                   </div>
+                   </span>
+                   <div class="btn btn-group">
+                       <button class="btn btn-primary" [disabled]="!requestRideForm.valid" type="submit" >Request</button>
+                     </div>
+            
+            
+             </form>
+ 
+          </div>
+            
+ 
+ 
+ 
+ </div>

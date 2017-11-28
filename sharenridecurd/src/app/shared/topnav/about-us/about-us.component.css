@@ -1,0 +1,14 @@
+.conatiner{
+    background-color:violet;
+    height: 630px;
+}
+.heading-compnay{
+    padding-left:50px;
+    text-align:center;
+}
+p{
+    font-size: 2rem;
+}
+body {
+    min-height: 100vh;
+  }

@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row">
+        <div>
+            <br>
+            <br>
+            <div class="alert alert-danger" role="alert" *ngIf="status === 'failure'">
+                {{successMsg}}
+              </div>
+              <div class="alert alert-success" role="alert" *ngIf="status === 'success'">
+                {{successMsg}}
+              </div>
+            <label>Current Scheduled Rides</label>
+            <table class="table table-striped">
+  
+                <tr>
+                    <th>
+                        Ride_ID
+                    </th>  
+                  <th >
+                        Origin
+                    </th>
+                    <th >
+                        Destination
+                    </th>
+                    <th >
+                        Driver Name
+                    </th>
+                    <th>
+                        Ride Time
+                    </th>
+                    <th>
+                        Car Model
+                    </th>
+                    <th>
+                        car Number
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                                    
+                                   
+                </tr>
+  
+  
+                <tr *ngFor="let rds of  currentRides">
+  
+                    <td>
+                       
+                        {{rds.ride_id}}
+                    </td>
+                    <td>
+                      
+                        {{rds.origin}}
+                    </td>
+                    <td>
+                        {{rds.destination}}
+                    </td>
+                    <td >
+                        {{rds.ride_driver_name}}
+                    </td>
+                    <td >
+                        {{rds.ridetime}}
+                    </td>
+                    <td>
+                        {{rds.carModel}}
+
+                    </td>
+                    <td>
+                        {{rds.carNumber}}
+                    </td>
+                    <td>
+                        {{rds.price}}
+                    </td>
+<!--                     
+                    <td><button class="btn btn-success"  (click)="startRide()" type="button">Start Ride</button></td>
+                    <td >
+                        <div class="btn btn-group">
+                            <button class="btn btn-warning"  (click)="stopRide(rds)" type="button">Stop</button>
+                          </div>                     
+                  
+                    </td>   -->
+                   
+                </tr>
+            </table>
+        </div>
+    </div>
+  
+  
+  </div>

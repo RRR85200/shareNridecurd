@@ -1,0 +1,154 @@
+<div class="container">
+  <div class="row">
+      <div>
+          <br>
+          <br>
+          <div class="alert alert-danger" role="alert" *ngIf="status === 'failure'">
+              {{successMsg}}
+            </div>
+            <div class="alert alert-success" role="alert" *ngIf="status === 'success'">
+              {{successMsg}}
+            </div>
+
+      <label>My Shared scheduled Rides</label>
+            <div class="alert alert-warning" role="alert" *ngIf="noavailablerides">
+                    No Current rides scheduled ....! Join or share a ride ..!
+                  </div>
+          <table class="table table-striped"  *ngIf="!noavailablerides">
+            
+              <tr>
+                  <th>
+                      Ride_ID
+                  </th>  
+                <th >
+                      Origin
+                  </th>
+                  <th >
+                      Destination
+                  </th>
+                  <th >
+                      Rider Name
+                  </th>
+                  <th>
+                      Ride Time
+                  </th>
+                  <th >
+                      Start Ride
+                  </th>
+                  <th>
+                      Stop Ride
+                  </th>                  
+                                 
+              </tr>
+
+
+              <tr *ngFor="let rds of  currentRides">
+
+                  <td>
+                     
+                      {{rds.ride_id}}
+                  </td>
+                  <td>
+                    
+                      {{rds.origin}}
+                  </td>
+                  <td>
+                      {{rds.destination}}
+                  </td>
+                  <td >
+                      {{rds.ride_rider_name}}
+                  </td>
+                  <td >
+                      {{rds.ridetime}}
+                  </td>
+                  
+                  <td><button class="btn btn-success"  (click)="startRide()" type="button">Start Ride</button></td>
+                  <td >
+                      <div class="btn btn-group">
+                          <button class="btn btn-warning"  (click)="stopRide(rds)" type="button">Stop</button>
+                        </div>
+                    
+                      <!-- <button type="submit" style="height:40px;margin-top:5%;background-color:#1976d2;font-size:15px" class="btn btn-lg green-color" (click)="UpdateStatus(rds)">{{rds.Status}}</button> -->
+                      <!--<img class="icon icons8-Edit-Row" width="30" height="30" (click)="UpdateStatus(rds)" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAC1UlEQVRoQ+2XQWjTYBTH/19D047JFg+iwzErznlwjvZiQT20F/Eg6PDoYejF06Q9C948DdrqwYMXd1bBCaKISE4e7KUtiDCprENQD4V1FdclNXuSzGDapl2ytE2E5JovX36/996XvMfg0WsjlRK2OE4EkUAcNz+5tFQ0Q2Ve5H8uFoTYmycvg035vMpHRDVwXNJMwnMCKjyjLTGgKCNz715PBJvyWC8JTwno8ACiKnRAUVaNEiCqHM1kjhurxjMC9BgCJIji1PKvevikVjrtEkRUmsxkNDn98oSADq9HXpxafm8iUR3fblw+mMvVPCXQDq/DGSUIVAIbTcwnYy3w6lpXM9AN3iixGZ4+0A3eVYG94P9KlFZOFUwj7+oZsAqPEBLsBjrKxtUz0E/4oZdQv+GHKjAI+KEJDAq+p0C2QBEmy1mAomAsst+mL6TUcO3zRRxqlLpuUR2Zw7OZt5A4oXUNUQVgReL5dDrGKpa7UQ2+KRcAtO1oT8MRfOurahTkY2YSpj+y7AdphTFcsYfbufpC4w7OlB+Bb9ZNt+oaeZPVRHiRjoeutt8yFcjlpQ2n0VdfdHN7Fr93eIx++dohYQdegyaqpOLhlk606xnI5SUymqbOhmy3HCQigkBoTdtHoVWU5QnsQOvtAZSs/KSscHTLgGOB+3dnH1w6/WNx5sjPXeR/EmtW4NVHXBVYvHWu/Om7cOLh9Tw0CcI6JHqKb/K9vdoDPfuuCiwsJGpjYbk6fbj+6nbyY4YlYfoZ7PWhcFXA6RfM9RLyBdw+xH4G/AwYamA/f2K/hJyUUDYv1Rgw3o8o9msPIlpPx8Mdc8lA2+l+we82ozbaaXWgQVMueiULBGwiyEctDzSqsSYhyzl1pGSMHetnNK3upZaNOlKC51O2RkqrL/DCOtuDihegjQy+gNsZ8TPgZ8BhBPwSchhAx4/7GXAcQocb+BlwGEDHj//3GfgDSsCVQANOHbwAAAAASUVORK5CYII=">
+                      <img class="icon icons8-Delete" width="30" height="30" (click)="DeleteRide(rds)" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB/UlEQVRoQ+2Yv07DQAzG7TZI9AlYKpWNFSRGpAILz9wFqNQRCdZuVMrCExSJEqNrmjZt/pzv7AtUXNcmvu/nz/H5DuHIf3jk+iEC/LaD0YHogDAD/6uElreX5yZhg+e3d2Hial/3ic924PPu+mKFvYlZuQ9f48Hj60ITYnl/NfqGk6mJmVD2cPr0MufEZwFsxE8B4WwdlGChCbEVjzDaxP9IKBtzIKwAFfFFWpQgKuJ38VkQ/gAKTjSKz2PrAJhYjS4IIDTEm+WtDhSOakJoiXcC0HJCU7wzgBRCW7wXgC9ECPHeAK4QocSLALgQ5rn1DltsUuXtldkq23ZkdhdqCtLenShFAqAeDivvK4gXO8BrsZQ/hqVcESxc5p2gDhxATOpLpQShNIIU64pLqJyd/GNNZoB1JUOABGkPVzeak6w6QEbJjBCGeyWzHdAo7cMfBdhrlVRT97spU3UUV3Fge9gpt8qOIMQAbW0UM0rJrFD7TegcikQAnAnVspGJy8kbgCO+6DaWUUIE4QXgIr74dm0QvhubM4CPeCYE6wh5uCs7AUjEh4JgA2iIDwHBAtAUrw1hBQghXhPCH0Bpqgx+sVV78lIS3+iEw3nB6kBl3u/gctfl3pUNYEB8rr/bTlOH//nEdwJwEdPVsxGgq0w3rRMdiA4IMxBLSJhA8es/hbn/QHs8knYAAAAASUVORK5CYII=">-->
+                  </td>
+                 
+              </tr>
+          </table>
+      </div>
+
+
+      <label>My Personal scheduled Current Rides</label>
+      <div class="alert alert-warning" role="alert" *ngIf="noavailableriderrides">
+            No rides scheduled ...! Join or Request a ride ..!
+            </div>
+
+      <table class="table table-striped" *ngIf="!noavailableriderrides">
+
+          <tr>
+              <th>
+                  Ride_ID
+              </th>
+              <th>
+                  Origin
+              </th>
+              <th>
+                  Destination
+              </th>
+              <th>
+                  Driver Name
+              </th>
+              <th>
+                  Ride Time
+              </th>
+              <th>
+                  Car Model
+              </th>
+              <th>
+                  Car Number
+              </th>
+              <th>
+                  Price
+              </th>
+
+          </tr>
+
+
+          <tr *ngFor="let rds of  currentRiderRides">
+
+              <td>
+
+                  {{rds.ride_id}}
+              </td>
+              <td>
+
+                  {{rds.origin}}
+              </td>
+              <td>
+                  {{rds.destination}}
+              </td>
+              <td>
+                  {{rds.ride_driver_name}}
+              </td>
+              <td>
+                  {{rds.ridetime}}
+              </td>
+
+              <td>
+                  {{rds.carModel}}
+              </td>
+              <td>
+                 {{rds.carNumber}}
+                </td>
+              <td>
+                 $ {{rds.price}}
+
+              </td>
+
+          </tr>
+      </table>
+
+  </div>
+
+
+</div>
