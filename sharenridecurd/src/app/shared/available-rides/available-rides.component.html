@@ -108,12 +108,13 @@
                                         <label for="enter seats">No of Passengers</label>
                                         <br>
                                         <!-- <input type="text" placeholder="Enter no of seats" [(ngModel)]="'seat'+i"> -->
-                                        <input type="text" col="10" placeholder="Enter no of Seats" ngModel #seats name="noSeats" (blur)="tr.value=rds.price*seats.value">
-                                        <div *ngIf="seats.value>=rds.seats" class="alert alert-danger">Cannot be more than available seats</div>
-                                    </div>
+                                        <!-- <input type="text" col="10" placeholder="Enter no of Seats" ngModel #seats name="noSeats" (blur)="tr.value=rds.price*seats.value">
+                                        <div *ngIf="seats.value>=rds.seats" class="alert alert-danger">Cannot be more than available seats</div> -->
+                                        <input type="text" placeholder="Enter no of Seats" ngModel #seats name="noSeats">
+                                      </div>
                                     <div class="col-md-2">
                                         <label for="coupon">Available coupon</label>
-                                        <p *ngIf="hasCoupon">{{userCoupon.coupon_type}}.00 % off</p>
+                                        <p *ngIf="hasCoupon">{{userCoupon.coupon_type}} % off</p>
                                         <p *ngIf="!hasCoupon">No Coupons Available</p>
                                     </div>
 
@@ -124,7 +125,12 @@
                                         <!-- <input type="text" *ngIf="hasCoupon" [disabled]="true" name="totalprice" #tr [ngModel]="rds.price*seats.value*(100-userCoupon.coupon_type)*0.01">
                                         <input type="text" *ngIf="!hasCoupon" [disabled]="true" name="totalprice" #tr [ngModel]="rds.price*seats.value"> -->
 
-                                        <input type="text" *ngIf="!hasCoupon" [disabled]="true" name="totalprice" #tr>
+                                        <input type="text" *ngIf="hasCoupon" [disabled]="true" name="totalprice" ngModel #tr
+                                        [value]="rds.price*seats.value*(100-userCoupon.coupon_type)*0.01" >
+                                         <input type="text" *ngIf="!hasCoupon" [disabled]="true" name="totalprice" ngModel #tr
+                                         [value]="rds.price*seats.value" >
+
+                                        <!-- <input type="text" *ngIf="!hasCoupon" [disabled]="true" name="totalprice" #tr> -->
 
                                     </div>
 
@@ -132,7 +138,7 @@
                                 <div class="col-md-2 pull-right">
                                     <div class="btn btn-group">
                                         <!-- <button class="btn btn-primary" type="submit" *ngIf="rds.user_id!==currentUserID" (click)="joinRide(rds,seats.value,tr.value)">Join</button> -->
-                                        <button class="btn btn-primary" type="submit" *ngIf="rds.user_id!==currentUserID" (click)="joinRide(rds)">Join</button>
+                                        <button class="btn btn-primary" type="submit" *ngIf="rds.user_id!==currentUserID" (click)="joinRide(rds,seats.value,tr.value)">Join</button>
 
                                     </div>
                                 </div>

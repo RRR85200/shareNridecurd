@@ -14,22 +14,30 @@ export class SignupComponent implements OnInit {
   user = new User();
   userTypeOptions:string[]=['Driver','Rider'];
   registerOK:Boolean=true;
+  regSuccessMsg:string;
+  regStatus:string;
   constructor(private signupservice:SignUpservice) { }
   @Output() signInValue= new EventEmitter<boolean>();
   sinin=false;
   ngOnInit() {
     this.user.userType=this.userTypeOptions[0];
-    
+
   }
- 
+
   onSignUp(user:User){
   console.log(user);
-    this.signupservice.addUser(user).subscribe(res=>{
-      if(res){
-          this.registerOK=false;
+  debugger;
+    this.signupservice.addUser(user).subscribe(result=>{
+      this.regSuccessMsg = JSON.parse(result['_body']).message;
+      this.regStatus = JSON.parse(result['_body']).status;
+     // alert(JSON.parse(result['_body']).message);
+      if(this.regStatus === 'success'){
+        this.regSuccessMsg = JSON.parse(result['_body']).message;
+      }else{
+        this.regSuccessMsg = JSON.parse(result['_body']).message;
       }
-    },error=>{console.error(error)},()=>{console.log('complet')});
-    
+    },error=>{console.error(error)});
+
     console.log(this.user);
 
   }

@@ -25,7 +25,7 @@ export class AvailableRidesComponent implements OnInit {
   availableRides: Array<PostRide>;
   public currentUserID: any;
   successMsg: string;
-  status: string;  
+  status: string;
   public sameDriver: boolean;
   public noavailablerides: boolean = false;
   hasCoupon:boolean=false;
@@ -39,7 +39,7 @@ export class AvailableRidesComponent implements OnInit {
 
   ngOnInit() {
     this.getAvailableride();
-   
+
     this.user = JSON.parse(sessionStorage.getItem("currentuser"));
     this.currentUserID = this.user['user_id'];
     this.getUserCoupon(this.currentUserID);
@@ -71,7 +71,7 @@ export class AvailableRidesComponent implements OnInit {
         let availRides: Array<PostRide> = result.json();
         if (availRides.length > 0) {
           this.availableRides = result.json()
-          console.log(JSON.stringify(this.availableRides));
+         // console.log(JSON.stringify(this.availableRides));
         } else {
           this.noavailablerides = true;
         }
@@ -88,13 +88,13 @@ export class AvailableRidesComponent implements OnInit {
       "user_id": user_id
     }
     this.http.post('http://localhost/practiceapi/getUserCouponapi.php', user)
-      //.(response => response.json())     
+      //.(response => response.json())
       .subscribe(result => {
         debugger;
         let gotCoupon = result.json();
         if(gotCoupon.length>0){
-          let isuserCoupon:Coupon = gotCoupon[0];                
-        
+          let isuserCoupon:Coupon = gotCoupon[0];
+
          Object.assign(this.userCoupon,gotCoupon[0]);
         console.log("Hi" + (this.userCoupon));
         console.log(typeof(this.userCoupon));
@@ -113,9 +113,9 @@ export class AvailableRidesComponent implements OnInit {
 
 
 
-  //public joinRide(rds,totalprice,noSeats) {
+  public joinRide(rds,totalprice,noSeats) {
 
-  public joinRide(rds) {
+  //public joinRide(rds) {
     debugger;
     this.currentride.destination = rds.destination;
     this.currentride.ride_rider_name = this.user['firstname'] + ' ' + this.user['lastname'];

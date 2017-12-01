@@ -224,7 +224,7 @@
               origin and destination cannot be same</span> -->
         </div>
         <!-- <div *ngIf="!postRideForm.get("origin").valid && !postRideForm.get("destination").valid && (postRideForm.get("origin").touched.value ==postRideForm.get("destination").touched.value) "  class="error-msg">Choose different destination</div> -->
-       
+
       </div>
 
       <div class="col-md-3">
@@ -233,7 +233,7 @@
         <div class="form-group">
           <input type="number" placeholder="No of Seats" min="0" max="5" formControlName="seats" [(ngModel)]="postride.seats" id="seats" class="form-control">
         </div>
-    
+
       </div>
 
 
@@ -241,11 +241,11 @@
         <br>
         <label>Choose Start time</label>
         <div class="form-group">
-          <input type="datetime-local" placeholder="Start Time" formControlName="date" [(ngModel)]="postride.ridedate" min="today" id="date" class="form-control">
-      
+          <input type="datetime-local" placeholder="Start Time" formControlName="date" [(ngModel)]="postride.ridedate" id="date" class="form-control">
+
         </div>
       </div>
-   
+
     <br>
 
     <div class="row">
