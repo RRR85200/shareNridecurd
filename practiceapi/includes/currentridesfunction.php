@@ -54,8 +54,8 @@ class CurentRides{
 	$this->RideDate=htmlspecialchars(strip_tags($this->RideDate));
     $this->Origin=htmlspecialchars(strip_tags($this->Origin));	
 	$this->RideID=htmlspecialchars(strip_tags($this->RideID)); 
-   $this->Seats=htmlspecialchars(strip_tags($this->Seats)); 
-   $this->Price=htmlspecialchars(strip_tags($this->Price)); 
+    $this->Seats=htmlspecialchars(strip_tags($this->Seats)); 
+    $this->Price=htmlspecialchars(strip_tags($this->Price)); 
    	$this->carNumber=htmlspecialchars(strip_tags($this->carNumber));
 	$this->carModel=htmlspecialchars(strip_tags($this->carModel));
 	

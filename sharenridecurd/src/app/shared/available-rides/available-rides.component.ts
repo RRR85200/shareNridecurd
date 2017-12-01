@@ -29,13 +29,12 @@ export class AvailableRidesComponent implements OnInit {
   public sameDriver: boolean;
   public noavailablerides: boolean = false;
   hasCoupon:boolean=false;
+  hasNoCoupon:boolean=false;
   public useCar:Car;
 
 
 
-  constructor(private http: Http) {
-
-  }
+  constructor(private http: Http) {}
 
   ngOnInit() {
     this.getAvailableride();
@@ -71,7 +70,7 @@ export class AvailableRidesComponent implements OnInit {
         let availRides: Array<PostRide> = result.json();
         if (availRides.length > 0) {
           this.availableRides = result.json()
-         // console.log(JSON.stringify(this.availableRides));
+         console.log(JSON.stringify(this.availableRides));
         } else {
           this.noavailablerides = true;
         }
@@ -99,8 +98,10 @@ export class AvailableRidesComponent implements OnInit {
         console.log("Hi" + (this.userCoupon));
         console.log(typeof(this.userCoupon));
         this.hasCoupon=true;
+        console.log("I have a coupon"+ this.hasCoupon);
         }else{
-          this.hasCoupon=false;
+          this.hasNoCoupon=true;
+          console.log("I have a coupon"+ this.hasNoCoupon);
 
         }
         // sessionStorage.setItem('userCoupon',JSON.stringify(this.userCoupon));
@@ -113,8 +114,10 @@ export class AvailableRidesComponent implements OnInit {
 
 
 
-  public joinRide(rds,totalprice,noSeats) {
-
+  public joinRide(rds,noSeats,totalprice) {
+    debugger;
+console.log(noSeats);
+console.log(totalprice.value);
   //public joinRide(rds) {
     debugger;
     this.currentride.destination = rds.destination;
@@ -127,10 +130,10 @@ export class AvailableRidesComponent implements OnInit {
     this.currentride.ride_id = rds.ride_id;
     this.currentride.carModel=rds.carModel;
     this.currentride.carNumber=rds.carNumber;
-   // this.currentride.seats = noSeats;
-   // this.currentride.price = totalprice;
-    this.currentride.seats = 1;
-    this.currentride.price = rds.price;
+   this.currentride.seats = noSeats;
+   this.currentride.price = totalprice.value;
+   // this.currentride.seats = 1;
+  //  this.currentride.price = rds.price;
     console.log(this.currentride);
     debugger;
     this.http.post("http://localhost/practiceapi/insertcurrentrideapi.php", JSON.stringify(this.currentride))

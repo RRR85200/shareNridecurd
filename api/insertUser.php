@@ -14,13 +14,27 @@ $email=$data['email'];
 $password=$data['password'];
 $mobile=$data['mobile'];
 $userType=$data['userType'];
-print_r($data);
+//print_r($data);
 
 $sql = "INSERT INTO user (userType,firstname,lastname,email,password,mobile)
 VALUES ('".$userType."','".$firstname."','".$lastname."','".$email."','".$password."','".$mobile."')";
 if($conn){
-	$qry = $conn->query($sql);
-}else{
+	if($qry = $conn->query($sql)){
+			echo '{';
+                   echo '"message": " Successfully Registered.",';
+		           echo '"status": "success"';
+           echo '}';
+	}else{
+
+	
+	echo '{';
+        echo '"message": "Registration failed.",';
+		echo '"status": "failure"';
+    echo '}';
+		
+	
+      }
+ }else{
 	$conn->close();
 	echo "no connection";
 }
