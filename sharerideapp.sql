@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 20, 2017 at 08:05 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- Host: localhost
+-- Generation Time: Dec 01, 2017 at 08:05 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -61,6 +63,13 @@ CREATE TABLE `car_details` (
   `seats` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `car_details`
+--
+
+INSERT INTO `car_details` (`user_id`, `model`, `company`, `year`, `vehicle_num`, `seats`) VALUES
+(124, 'Laferrari', 'Ferrari', 2010, 'gyugysdf678', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -78,19 +87,26 @@ CREATE TABLE `current_rides` (
   `ridetime` datetime NOT NULL,
   `ride_id` int(234) NOT NULL,
   `seats` int(10) NOT NULL,
-  `price` float(10,2) NOT NULL
+  `price` float(10,2) NOT NULL,
+  `carModel` varchar(20) NOT NULL,
+  `carNumber` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `current_rides`
 --
 
-INSERT INTO `current_rides` (`current_rideid`, `ride_driver_name`, `ride_rider_name`, `ride_user_id`, `ride_driver_id`, `origin`, `destination`, `ridetime`, `ride_id`, `seats`, `price`) VALUES
-(29, 'rangarayudu', 'ajay trinet', 129, 124, 'Independence', 'UCM main campus', '2017-11-18 11:16:20', 9030, 0, 0.00),
-(31, 'Ranga', 'Nareshanna Krish', 130, 124, 'UCM main campus', 'Sedali', '2017-11-30 01:01:00', 9018, 1, 5.00),
-(33, 'NareshannaKrish', 'ajay trinet', 129, 130, 'UCM main campus', 'Lee summit Campus', '2017-11-18 17:30:07', 9033, 1, 5.00),
-(36, 'NareshannaKrish', 'samba siva ', 138, 130, 'Olathe', 'Lee summit Campus', '2017-11-19 21:51:52', 9047, 1, 6.00),
-(37, 'NareshannaKrish', 'samba siva ', 138, 130, 'Olathe', 'Lee summit Campus', '2017-11-19 21:51:54', 9047, 1, 6.00);
+INSERT INTO `current_rides` (`current_rideid`, `ride_driver_name`, `ride_rider_name`, `ride_user_id`, `ride_driver_id`, `origin`, `destination`, `ridetime`, `ride_id`, `seats`, `price`, `carModel`, `carNumber`) VALUES
+(29, 'rangarayudu', 'ajay trinet', 129, 124, 'Independence', 'UCM main campus', '2017-11-18 11:16:20', 9030, 0, 0.00, '', ''),
+(31, 'Ranga', 'Nareshanna Krish', 130, 124, 'UCM main campus', 'Sedali', '2017-11-30 01:01:00', 9018, 1, 5.00, '', ''),
+(33, 'NareshannaKrish', 'ajay trinet', 129, 130, 'UCM main campus', 'Lee summit Campus', '2017-11-18 17:30:07', 9033, 1, 5.00, '', ''),
+(36, 'NareshannaKrish', 'samba siva ', 138, 130, 'Olathe', 'Lee summit Campus', '2017-11-19 21:51:52', 9047, 1, 6.00, '', ''),
+(37, 'NareshannaKrish', 'samba siva ', 138, 130, 'Olathe', 'Lee summit Campus', '2017-11-19 21:51:54', 9047, 1, 6.00, '', ''),
+(38, 'NareshannaKrish', 'ajay trinet', 129, 130, 'UCM main campus', 'Lee summit Campus', '2017-12-14 11:31:29', 9033, 1, 5.00, '', ''),
+(39, 'NareshannaKrish', 'ajay trinet', 129, 130, 'UCM main campus', 'Lee summit Campus', '2017-12-01 00:30:02', 9033, 1, 5.00, '', ''),
+(40, 'Ranga', 'ajay trinet', 129, 124, 'UCM main campus', 'Sedali', '2017-12-08 23:26:54', 9032, 1, 5.00, 'Laferrari', 'jkkjkjfasd998'),
+(41, 'Ranga', 'ajay trinet', 129, 124, 'UCM main campus', 'Sedali', '2017-12-01 00:45:56', 9032, 2, 7.50, 'Laferrari', 'jkkjkjfasd998'),
+(42, 'NareshannaKrish', 'ajay trinet', 129, 130, 'UCM main campus', 'Lee summit Campus', '2017-12-01 00:33:37', 9033, 1, 3.75, '', '');
 
 -- --------------------------------------------------------
 
@@ -120,22 +136,24 @@ CREATE TABLE `rides_avail` (
   `mobile` float(15,0) NOT NULL,
   `ride_id` int(11) NOT NULL,
   `postedBy` text NOT NULL,
-  `price` float NOT NULL
+  `price` float NOT NULL,
+  `carNumber` varchar(20) NOT NULL,
+  `carModel` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rides_avail`
 --
 
-INSERT INTO `rides_avail` (`user_id`, `origin`, `destination`, `seats`, `date`, `userType`, `mobile`, `ride_id`, `postedBy`, `price`) VALUES
-(124, 'UCM main campus', 'Sedali', 5, '2017-11-04 01:01:00', 'Driver', 122345568, 9032, 'Ranga', 5),
-(130, 'UCM main campus', 'Lee summit Campus', 3, '2017-11-18 17:31:22', 'Driver', 6748744, 9033, 'NareshannaKrish', 5),
-(124, 'Olathe', 'Lone Jack', 0, '2017-11-19 02:10:31', 'Driver', 5102097920, 9034, 'rangarayudu', 8),
-(129, 'Kansas Zoo Area', 'Bristle Ridge', 3, '2015-12-05 12:57:00', 'Rider', 9584425984, 9046, 'ajaytrinet', 0),
-(130, 'Olathe', 'Lee summit Campus', 0, '2017-11-19 21:51:57', 'Driver', 6748744, 9047, 'NareshannaKrish', 6),
-(124, 'Sedali', 'Walmart warrensburg', 6, '2017-12-28 15:22:00', 'Driver', 5102097920, 9048, 'rangarayudu', 6),
-(129, 'Knob Knoster', 'Knob Knoster', 5, '2018-02-01 15:44:00', 'Rider', 9584425984, 9049, 'ajaytrinet', 0),
-(138, 'Overland Park', 'Lone Jack', 7, '2017-12-21 12:14:00', 'Rider', 5102036480, 9050, 'sambasiva ', 0);
+INSERT INTO `rides_avail` (`user_id`, `origin`, `destination`, `seats`, `date`, `userType`, `mobile`, `ride_id`, `postedBy`, `price`, `carNumber`, `carModel`) VALUES
+(124, 'UCM main campus', 'Sedali', 2, '2017-12-01 00:47:33', 'Driver', 122345568, 9032, 'Ranga', 5, 'jkkjkjfasd998', 'Laferrari'),
+(130, 'UCM main campus', 'Lee summit Campus', 0, '2017-12-01 00:49:06', 'Driver', 6748744, 9033, 'NareshannaKrish', 5, '', ''),
+(124, 'Olathe', 'Lone Jack', 0, '2017-11-19 02:10:31', 'Driver', 5102097920, 9034, 'rangarayudu', 8, '', ''),
+(129, 'Kansas Zoo Area', 'Bristle Ridge', 3, '2016-02-18 12:57:00', 'Rider', 9584425984, 9046, 'ajaytrinet', 0, '', ''),
+(130, 'Olathe', 'Lee summit Campus', 0, '2017-11-19 21:51:57', 'Driver', 6748744, 9047, 'NareshannaKrish', 6, '', ''),
+(124, 'Sedali', 'Walmart warrensburg', 6, '2017-12-28 15:22:00', 'Driver', 5102097920, 9048, 'rangarayudu', 6, '', ''),
+(129, 'Knob Knoster', 'Knob Knoster', 5, '2018-02-01 15:44:00', 'Rider', 9584425984, 9049, 'ajaytrinet', 0, '', ''),
+(138, 'Overland Park', 'Lone Jack', 7, '2017-12-21 12:14:00', 'Rider', 5102036480, 9050, 'sambasiva ', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -154,25 +172,28 @@ CREATE TABLE `ride_history` (
   `ridetime` datetime NOT NULL,
   `ride_id` int(200) NOT NULL,
   `rideendtime` datetime NOT NULL,
-  `price` float(10,2) NOT NULL
+  `price` float(10,2) NOT NULL,
+  `carModel` varchar(20) NOT NULL,
+  `carNumber` varchar(20) NOT NULL,
+  `seats` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ride_history`
 --
 
-INSERT INTO `ride_history` (`ride_hist_id`, `ride_driver_name`, `ride_rider_name`, `ride_user_id`, `ride_driver_id`, `origin`, `destination`, `ridetime`, `ride_id`, `rideendtime`, `price`) VALUES
-(8, 'rangarayudu', 'ranga rayudu', 124, 124, 'Lee summit Campus', 'Knob Knoster', '2017-12-12 12:12:00', 9024, '2017-11-05 11:17:45', 0.00),
-(10, 'NareshannaKrish', 'ranga rayudu', 124, 130, 'UCM main campus', 'KCI Airport', '2017-12-12 01:01:00', 9026, '2017-11-06 21:57:10', 0.00),
-(12, 'rangarayudu', 'ranga rayudu', 124, 124, 'Lee summit Campus', 'Knob Knoster', '2017-12-12 12:12:00', 9024, '2017-11-16 23:45:24', 0.00),
-(14, 'NareshannaKrish', 'Tarak Rayapudi', 136, 130, 'UCM main campus', 'KCI Airport', '2017-12-12 01:01:00', 9026, '2017-11-18 00:22:14', 0.00),
-(16, 'NareshannaKrish', 'ajay trinet', 129, 130, 'UCM main campus', 'Lee summit Campus', '2017-11-18 17:30:07', 9033, '2017-11-18 22:30:36', 0.00),
-(18, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'Kansas City', 'Lee summit Campus', '2017-12-12 05:00:00', 9036, '2017-11-19 02:12:44', 0.00),
-(25, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'Kansas City', 'Lee summit Campus', '2017-12-12 05:00:00', 9036, '2017-11-19 02:56:50', 0.00),
-(27, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'UCM main campus', 'UCM main campus', '2017-12-15 12:12:00', 9045, '2017-11-19 02:59:50', 0.00),
-(29, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'UCM main campus', 'UCM main campus', '2017-12-15 12:12:00', 9045, '2017-11-19 03:02:01', 0.00),
-(31, 'rangarayudu', 'Nareshanna Krish', 130, 124, 'Olathe', 'Lone Jack', '2017-11-19 00:09:34', 9034, '2017-11-19 03:03:43', 0.00),
-(32, 'ranga rayudu', 'ajaytrinet', 129, 124, 'Kansas City', 'Lee summit Campus', '2017-12-12 05:00:00', 9036, '2017-11-19 03:03:44', 0.00);
+INSERT INTO `ride_history` (`ride_hist_id`, `ride_driver_name`, `ride_rider_name`, `ride_user_id`, `ride_driver_id`, `origin`, `destination`, `ridetime`, `ride_id`, `rideendtime`, `price`, `carModel`, `carNumber`, `seats`) VALUES
+(8, 'rangarayudu', 'ranga rayudu', 124, 124, 'Lee summit Campus', 'Knob Knoster', '2017-12-12 12:12:00', 9024, '2017-11-05 11:17:45', 0.00, '', '', 0),
+(10, 'NareshannaKrish', 'ranga rayudu', 124, 130, 'UCM main campus', 'KCI Airport', '2017-12-12 01:01:00', 9026, '2017-11-06 21:57:10', 0.00, '', '', 0),
+(12, 'rangarayudu', 'ranga rayudu', 124, 124, 'Lee summit Campus', 'Knob Knoster', '2017-12-12 12:12:00', 9024, '2017-11-16 23:45:24', 0.00, '', '', 0),
+(14, 'NareshannaKrish', 'Tarak Rayapudi', 136, 130, 'UCM main campus', 'KCI Airport', '2017-12-12 01:01:00', 9026, '2017-11-18 00:22:14', 0.00, '', '', 0),
+(16, 'NareshannaKrish', 'ajay trinet', 129, 130, 'UCM main campus', 'Lee summit Campus', '2017-11-18 17:30:07', 9033, '2017-11-18 22:30:36', 0.00, '', '', 0),
+(18, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'Kansas City', 'Lee summit Campus', '2017-12-12 05:00:00', 9036, '2017-11-19 02:12:44', 0.00, '', '', 0),
+(25, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'Kansas City', 'Lee summit Campus', '2017-12-12 05:00:00', 9036, '2017-11-19 02:56:50', 0.00, '', '', 0),
+(27, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'UCM main campus', 'UCM main campus', '2017-12-15 12:12:00', 9045, '2017-11-19 02:59:50', 0.00, '', '', 0),
+(29, 'Nareshanna Krish', 'ajaytrinet', 129, 130, 'UCM main campus', 'UCM main campus', '2017-12-15 12:12:00', 9045, '2017-11-19 03:02:01', 0.00, '', '', 0),
+(31, 'rangarayudu', 'Nareshanna Krish', 130, 124, 'Olathe', 'Lone Jack', '2017-11-19 00:09:34', 9034, '2017-11-19 03:03:43', 0.00, '', '', 0),
+(32, 'ranga rayudu', 'ajaytrinet', 129, 124, 'Kansas City', 'Lee summit Campus', '2017-12-12 05:00:00', 9036, '2017-11-19 03:03:44', 0.00, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -202,7 +223,8 @@ INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `mobile`, `pass
 (132, 'Ravali', 'Pothineni', 'ravali@gmail.com', 5102589634, 'ravali123', 'Rider'),
 (134, 'Nagrjuna', 'Rayapudi', 'nagarjuna@gmail.com', 9966078842, 'nag123', 'Rider'),
 (136, 'Tarak', 'Rayapudi', 'tarakram@gmail.com', 5102032569, 'tarak123', 'Rider'),
-(138, 'samba', 'siva ', 'samba.siva@gmail.com', 5102036697, 'samba123', 'Rider');
+(138, 'samba', 'siva ', 'samba.siva@gmail.com', 5102036697, 'samba123', 'Rider'),
+(152, 'Bharath', 'Rayapudi', 'bharath@gmail.com', 5102268742, 'bharath123', 'Driver');
 
 -- --------------------------------------------------------
 
@@ -290,31 +312,37 @@ ALTER TABLE `user_coupons`
 --
 ALTER TABLE `avail_coupons`
   MODIFY `coupon_code` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90005;
+
 --
 -- AUTO_INCREMENT for table `current_rides`
 --
 ALTER TABLE `current_rides`
-  MODIFY `current_rideid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `current_rideid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
 --
 -- AUTO_INCREMENT for table `rides_avail`
 --
 ALTER TABLE `rides_avail`
   MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9051;
+
 --
 -- AUTO_INCREMENT for table `ride_history`
 --
 ALTER TABLE `ride_history`
   MODIFY `ride_hist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+
 --
 -- AUTO_INCREMENT for table `user_coupons`
 --
 ALTER TABLE `user_coupons`
   MODIFY `coupon_seq` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2002;
+
 --
 -- Constraints for dumped tables
 --
@@ -344,6 +372,7 @@ ALTER TABLE `rides_avail`
 ALTER TABLE `user_coupons`
   ADD CONSTRAINT `user_coupons_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `user_coupons_ibfk_2` FOREIGN KEY (`coupon_code`) REFERENCES `avail_coupons` (`coupon_code`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
