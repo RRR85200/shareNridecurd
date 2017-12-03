@@ -97,5 +97,27 @@ class Coupons{
 		 
 	 }
   }
+  
+  function coupon_update(){
+	  print_r("Hi");
+	  exit;
+	 
+    // query to insert record
+    $query = "UPDATE
+                " . $this->table_user_coupons . "
+           SET coupon_rides= coupon_rides - 1 where user_id=".$this->UserId;
+    // prepare query
+    $stmt = $this->conn->prepare($query);	
+ 
+    // sanitize
+     
+	 $this->UserId=htmlspecialchars(strip_tags($this->UserId));
+  
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
 }
 	?>

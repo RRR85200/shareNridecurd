@@ -5,3 +5,7 @@
   .ng-invalid:not(form)  {
     border-left: 5px solid #a94442; /* red */
   }
+
+   .radio input[type=radio]{
+    margin-left: 12px;
+   }

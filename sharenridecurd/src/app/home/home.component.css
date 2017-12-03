@@ -11,5 +11,11 @@
 } */
 
 .carpool-img{
-    
+    background-image: url("../../assets/images/carpool-students.jpg");
+   min-width:100%;
+   min-height:100%;   
+    background-size: cover;
+    background-repeat: no-repeat;
+  
+    /* background-position: 50% 50%; */
 }

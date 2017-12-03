@@ -4,7 +4,6 @@
     <h3>Register Now!!!</h3>
     <div class="alert alert-danger" role="alert" *ngIf="regStatus === 'failure'">
       Email Already in Used..! Choose Different Email.
-
     </div>
     <div class="alert alert-success" role="alert" *ngIf="regStatus === 'success'">
       {{regSuccessMsg}}
@@ -13,7 +12,6 @@
   </div>
   <div class="row col-md-8">
     <form (ngSubmit)="onSignUp(user);f.reset()" #f="ngForm">
-
       <div class="form-group">
         <span class="radio" *ngFor="let usertype of userTypeOptions">
           <label>
