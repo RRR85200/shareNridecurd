@@ -55,8 +55,16 @@
                    </div>
                    </span>
                    <div class="btn btn-group">
-                       <button class="btn btn-primary" [disabled]="!requestRideForm.valid" type="submit" >Request</button>
+                       <button class="btn btn-primary" [disabled]="validateRide()" type="submit" >Request</button>
                      </div>
+              <div class="alert alert-danger" *ngIf="((this.requestRideForm.get('destination').value === this.requestRideForm.get('origin').value) &&
+              (this.requestRideForm.get('destination').touched && this.requestRideForm.get('origin').touched))">
+            Choose  a different Destination</div>
+            <div class="alert alert-danger" *ngIf="((this.requestRideForm.get('date').value) < {{today}}) &&
+            this.requestRideForm.get('date').touched">Date Must be greater than Now
+
+            </div>
+
             
             
              </form>

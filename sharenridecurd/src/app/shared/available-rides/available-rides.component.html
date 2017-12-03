@@ -25,9 +25,10 @@
         </tr>
 
 
+
         <tr class="ride_details" *ngFor="let rds of  availableRides;let i=index">
 
-          <td>
+          <td *ngIf="hasCoupon">
             <br>
             <br>
             <div class="container">
@@ -127,7 +128,7 @@
                       <input type="text" [disabled]="true" name="totalprice" ngModel #trInput [value]="rds.price*seats.value">
                     </div> -->
 
-                      <input type="text" [disabled]="true" name="totalprice" ngModel #trInput1 [value]="rds.price*seats.value*(100-userCoupon.coupon_type)*0.01">
+                    <input type="text" [disabled]="true" name="totalprice" ngModel #trInput1 [value]="rds.price*seats.value*(100-userCoupon.coupon_type)*0.01">
 
 
                     <!-- <ng-container *ngIf="hasCoupon" >
@@ -143,10 +144,13 @@
                   </div>
 
                 </div>
+                <div *ngIf="(seats.value > rds.seats)" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be more than available seats</div>
                 <div class="col-md-2 pull-right">
                   <div class="btn btn-group">
-                    <!-- <button class="btn btn-primary" type="submit" *ngIf="rds.user_id!==currentUserID" (click)="joinRide(rds,seats.value,tr.value)">Join</button> -->
-                    <button class="btn btn-primary" type="submit" *ngIf="rds.user_id!==currentUserID" (click)="joinRide(rds,seats.value,trInput1)">Join</button>
+
+
+                    <button class="btn btn-primary" [disabled]="(seats.value > rds.seats) || (seats.value < 0)" type="submit" *ngIf="rds.user_id!==currentUserID"
+                      (click)="joinRide(rds,seats.value,trInput1)">Join</button>
 
                   </div>
                 </div>
@@ -157,6 +161,135 @@
           </td>
 
         </tr>
+
+
+
+
+        <tr class="ride_details" *ngFor="let rds of  availableRides;let i=index">
+
+          <td *ngIf="hasNoCoupon">
+            <br>
+            <br>
+            <div class="container">
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="RideID">Ride Id</label>
+                    <br>
+                    <p>{{rds.ride_id}}</p>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label for="Origin">Origin</label>
+                    <br>
+                    <p> {{rds.origin}}</p>
+                  </div>
+
+
+                  <div class="col-md-2">
+                    <label for="Destination">Destination</label>
+                    <br>
+                    <p> {{rds.destination}}</p>
+                  </div>
+
+
+                  <div class="col-md-2">
+                    <label for="postedby">PostedBY</label>
+                    <br>
+                    <p>{{rds.postedBy}}</p>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label for="mobile">Driver Contact</label>
+                    <br>
+                    <p> {{rds.mobile}}</p>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label for="mobile">Available Seats</label>
+                    <br>
+                    <p> {{rds.seats}}</p>
+                  </div>
+
+
+                </div>
+
+              </div>
+              <br>
+
+              <div class="col-md-12">
+                <br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="mobile">Ride Time</label>
+                    <br>
+                    <p> {{rds.date}}</p>
+                  </div>
+                  <div class="col-md-1">
+                    <label for="price">Price/head</label>
+                    <br>
+                    <p> $ {{rds.price}}</p>
+                  </div>
+                  <div class="col-md-1">
+                    <label for="price">Car Model</label>
+                    <br>
+                    <p> {{rds.carModel}}</p>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="price">Vehicle number</label>
+                    <br>
+                    <p> {{rds.carNumber}}</p>
+                  </div>
+
+
+                  <div class="col-md-2">
+                    <label for="enter seats">No of Passengers</label>
+                    <br>
+                    <!-- <input type="text" placeholder="Enter no of seats" [(ngModel)]="'seat'+i"> -->
+                    <!-- <input type="text" col="10" placeholder="Enter no of Seats" ngModel #seats name="noSeats" (blur)="tr.value=rds.price*seats.value">
+                                                  <div *ngIf="seats.value>=rds.seats" class="alert alert-danger">Cannot be more than available seats</div> -->
+                    <input type="number" col="3" min="0" max="{{rds.seats}}" placeholder="Enter no of Seats" ngModel #seats name="noSeats">
+                  </div>
+                  <div class="col-md-2">
+                    <label for="coupon">Available coupon</label>
+                    <p *ngIf="hasCoupon">{{userCoupon.coupon_type}} % off</p>
+                    <p *ngIf="!hasCoupon">No Coupons Available</p>
+                  </div>
+
+
+                  <div class="col-md-1">
+                    <label for="price">Total</label>
+
+
+
+                    <input type="text" [disabled]="true"  col="5" name="totalprice" [ngModel] #trInput1 [value]="rds.price*seats.value">
+
+
+                    <!-- input type="text" *ngIf="!hasCoupon" [disabled]="true" name="totalprice" #tr> -->
+
+                  </div>
+
+                </div>
+                <div *ngIf="(seats.value > rds.seats)" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be more than available seats</div>
+                <div class="col-md-2 pull-right">
+                  <div class="btn btn-group">
+
+
+                    <button class="btn btn-primary" [disabled]="(seats.value > rds.seats) || (seats.value < 0)" type="submit" *ngIf="rds.user_id!==currentUserID"
+                      (click)="joinRide(rds,seats.value,trInput1)">Join</button>
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </td>
+
+        </tr>
+
       </table>
     </div>
   </div>

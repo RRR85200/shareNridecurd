@@ -1,98 +1,121 @@
 <?php
-class Users{
+class Coupons{
  
     // database connection and table name
     private $conn;
-    private $table_name = "user";
+    private $table_name1 = "avail_coupons";
+	private $table_user_coupons="user_coupons";
  
     // object properties   
-   // 
-    public $firstname;
-    public $lastname;
-  //  public $age;
-   // public $gender;
-   // public $dob;
-	//public $rating;
-	//public $phone_no;
-	public $user_id;
-	public $email;
-	public $password;
-	public $userType;
+   
+   
+     public $UserId;   
+	 public $coupon_code;
+	 public $coupon_type;
+	 public $coupon_validity;
+	 public $coupon_rides;
+	 public $coupon_price;
+	 public $coupon_seq;
+
+
+	
+	
+
  
     // constructor with $db as database connection
     public function __construct($db){
         $this->conn = $db;
     }
 	
-	function insert(){
+	function getuserCoupon(){
+		 $query = "SELECT *  FROM
+                " . $this->table_user_coupons." where coupon_rides>0 and user_id=".$this->UserId; 
  
-    // query to insert record
-    $query = "INSERT INTO
-                " . $this->table_name . "b 
-            SET
-                userType=:userType,firstname=:firstname, lastname=:lastname,email=:email,password=:password,mobile=:mobile";
- 
+    // prepare query statement
+		$stmt = $this->conn->prepare( $query );
+		$this->UserId=htmlspecialchars(strip_tags($this->UserId));
+	   
+		// execute query
+		if($stmt->execute()){
+	 $rows = array();
+	 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	 echo json_encode($rows);
+	 return($rows);
+			
+	}else{
+		return null;
+	}
+}
+	  			  
+				  
+	
+	function buyCoupon(){
+		$query = "INSERT INTO " .$this->table_user_coupons."(user_id,coupon_code,coupon_type,coupon_validity,coupon_rides,coupon_price) VALUES ('".$this->UserId."','".$this->coupon_code."','".$this->coupon_type."','" .$this->coupon_validity."','".$this->coupon_rides."','".$this->coupon_price."')"; 		
+	
+				  
+  				  
     // prepare query
-    $stmt = $this->conn->prepare($query);
+   	$stmt = $this->conn->prepare($query);
+	//print_r($stmt);  
  
-   // bind values
-   $stmt->bindParam(":userType", $this->userType);
-    $stmt->bindParam(":firstname", $this->firstname);
-    $stmt->bindParam(":lastname", $this->lastname);
-  
-	$stmt->bindParam(":email", $this->email);
-	$stmt->bindParam(":password", $this->password);
-	$stmt->bindParam(":mobile",$this->mobile);
+    // sanitize
+	$this->UserId=htmlspecialchars(strip_tags($this->UserId));
+    $this->coupon_code=htmlspecialchars(strip_tags($this->coupon_code));
+    $this->coupon_type=htmlspecialchars(strip_tags($this->coupon_type));	
+    $this->coupon_validity=htmlspecialchars(strip_tags($this->coupon_validity));
+    $this->coupon_rides=htmlspecialchars(strip_tags($this->coupon_rides));
+	$this->coupon_price=htmlspecialchars(strip_tags($this->coupon_price));
+    $this->coupon_seq=htmlspecialchars(strip_tags($this->coupon_seq));   
+	//$this->RideendTime=htmlspecialchars(strip_tags($this->RideendTime));    
+	
+    if($stmt->execute()){
+	//	echo "Success";
+        return true;
+    }else{
+		//echo "ERROR";
+        return false;
+    }
+
+		
+		
+	}
+	
+	 function getAllCoupons(){
+		   // query to read single record
+    $query = "SELECT *  FROM
+                " . $this->table_name1; 
  
+    // prepare query statement
+    $stmt = $this->conn->prepare( $query );
+   
     // execute query
     if($stmt->execute()){
+  $rows = array();
+  $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($rows);
+  return($rows);
+		 
+	 }
+  }
+  
+  function coupon_update(){
+	 
+    // query to insert record
+    $query = "UPDATE
+                " . $this->table_user_coupons . "
+           SET coupon_rides= coupon_rides - 1 where user_id=".$this->UserId;
+    // prepare query
+    $stmt = $this->conn->prepare($query);	
+ 
+    // sanitize
+     
+	 $this->UserId=htmlspecialchars(strip_tags($this->UserId));
+  
+    if($stmt->execute()){
         return true;
-		//echo"hi ";
     }else{
         return false;
     }
 }
-
-
-function login(){
- 
-    // query to read single record
-    $query = "SELECT *  FROM
-                " . $this->table_name . "  WHERE email = ? and password= ? LIMIT 0,1";
- 
-    // prepare query statement
-    $stmt = $this->conn->prepare( $query );
- 
-    // bind id of product to be updated
-    $stmt->bindParam(1, $this->email);
-	$stmt->bindParam(2, $this->password);
- 
-    // execute querys
-    // execute query
-    if($stmt->execute()){
-   $rows = array();
-   $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-   echo json_encode($rows);
-   return($rows);
-      
-  }else{
-    return null;
-  }
 }
-
-// function getavilableRides(){
-	 // $date = date('Y/m/d H:i:s');
-	 // $ride_table="rides_avail";
-	 // $query="select * from " .$this->ride_table. " where date >=".$date ;
-	 // $stmt=&this->conn->prepare($query);
-	 // $stmt->execute();
-	 // while ($row = $stmt->fetch(PDO::FETCH_ASSOC){
- 
-           // $solution=$row['solution'];
-    // };
-      // }
-
-}
-
-
-?>
+	?>
