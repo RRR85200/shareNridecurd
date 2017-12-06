@@ -60,9 +60,10 @@
               <div class="alert alert-danger" *ngIf="((this.requestRideForm.get('destination').value === this.requestRideForm.get('origin').value) &&
               (this.requestRideForm.get('destination').touched && this.requestRideForm.get('origin').touched))">
             Choose  a different Destination</div>
-            <div class="alert alert-danger" *ngIf="((this.requestRideForm.get('date').value) < {{today}}) &&
-            this.requestRideForm.get('date').touched">Date Must be greater than Now
-
+           {{this.requestRideForm.get('date').value | date: 'dd-MM-yyyy HH:mm:ss'}}
+           {{today | date: 'dd-MM-yyyy HH:mm:ss'}}
+            <div class="alert alert-danger" *ngIf="this.requestRideForm.get('date').touched &&
+             ((this.requestRideForm.get('date').value | date: 'dd-MM-yyyy HH:mm:ss') < this.today | date: 'dd-MM-yyyy HH:mm:ss')">Date Must be greater than Now
             </div>
 
             
