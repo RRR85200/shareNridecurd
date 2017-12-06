@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, PatternValidator } from '@angular/forms';
 import { User } from '../../shared/user';
 import { PostRide } from '../../shared/post-ride';
 import { Car } from '../../shared/car';
@@ -17,22 +17,22 @@ export class PostRideComponent implements OnInit {
     'KCI Airport', 'Kansas Zoo Area', 'Lone Jack', 'Centerview', 'Knob Knoster', 'Bristle Ridge', 'Post Oak', 'Lions Lake',
     'Dallas', 'Chicago'];
   public postride = new PostRide;
-today=new Date();
+  today = new Date();
 
   user = new User();
   successMsg: string;
   status: string;
   statuscar: string;
-  statusUpdateCar:string;
+  statusUpdateCar: string;
   public car = new Car;
   userCar: Car = new Car;
   hasCar: boolean = false;
   public currentUserID: any;
   postRideForm: FormGroup;
   carDetails: FormGroup;
-  updateCar:FormGroup;
-  useCar:Car;
-  isUpdateCar:boolean=true;
+  updateCar: FormGroup;
+  useCar: Car;
+  isUpdateCar: boolean = true;
   constructor(private http: Http) {
 
   }
@@ -53,61 +53,61 @@ today=new Date();
       'seats': new FormControl('', Validators.required)
 
     });
-    this.updateCar=new FormGroup({
-  
-        'model': new FormControl(this.userCar.model, Validators.required),
-        'year': new FormControl(this.userCar.year, Validators.required),
-        'company': new FormControl(this.userCar.company, Validators.required),
-        'vehicleNum': new FormControl(this.userCar.vehicle_num, Validators.required),
-        'seats': new FormControl(this.userCar.seats, Validators.required)  
+    this.updateCar = new FormGroup({
+
+      'model': new FormControl(this.userCar.model, Validators.required),
+      'year': new FormControl(this.userCar.year, Validators.required),
+      'company': new FormControl(this.userCar.company, Validators.required),
+      'vehicleNum': new FormControl(this.userCar.vehicle_num, Validators.required),
+      'seats': new FormControl(this.userCar.seats, Validators.required)
 
     });
     /////////////////////
     this.postRideForm = new FormGroup({
       'origin': new FormControl('UCM main campus', Validators.required),
       'destination': new FormControl('Lee summit Campus', Validators.required),
-      'seats': new FormControl('', Validators.required),
+      'seats': new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
       'date': new FormControl('', Validators.required),
       'price': new FormControl('', Validators.required)
     });
     this.user = JSON.parse(sessionStorage.getItem("currentuser"));
     console.log("USer identified from session" + this.user);
-    
+
     ///////
     this.car.user_id = this.user['user_id'];
     ////////
-    
+
     ////
-    this.useCar=JSON.parse(sessionStorage.getItem("userCar"));
- 
+    this.useCar = JSON.parse(sessionStorage.getItem("userCar"));
+
 
 
   }
- public  editCar(){
-   this.isUpdateCar=false;
-   document.getElementById("showcardetails").style.display="none";
- }
-  public UpdateCar(){
+  public editCar() {
+    this.isUpdateCar = false;
+    document.getElementById("showcardetails").style.display = "none";
+  }
+  public UpdateCar() {
     console.log(this.userCar);
     debugger;
     this.http.post("http://localhost/practiceapi/updateCarapi.php", JSON.stringify(this.userCar))
-    .subscribe(result => {
-      
-      console.log("updated Car Succesfully");
-      this.getUserCar(this.currentUserID);
-      this.successMsg = JSON.parse(result['_body']).message;
-      this.statusUpdateCar = JSON.parse(result['_body']).status;
-      document.getElementById("showcardetails").style.display="block";
-      this.isUpdateCar=true;
-      // alert(JSON.parse(result['_body']).message);
-      if (this.statusUpdateCar === 'success') {
-        this.successMsg = JSON.parse(result['_body']).message;
-      } else if ((this.statusUpdateCar === 'failure')) {
-        this.successMsg = JSON.parse(result['_body']).message;
-      };
-      err => console.log(err)
+      .subscribe(result => {
 
-    });
+        console.log("updated Car Succesfully");
+        this.getUserCar(this.currentUserID);
+        this.successMsg = JSON.parse(result['_body']).message;
+        this.statusUpdateCar = JSON.parse(result['_body']).status;
+        document.getElementById("showcardetails").style.display = "block";
+        this.isUpdateCar = true;
+        // alert(JSON.parse(result['_body']).message);
+        if (this.statusUpdateCar === 'success') {
+          this.successMsg = JSON.parse(result['_body']).message;
+        } else if ((this.statusUpdateCar === 'failure')) {
+          this.successMsg = JSON.parse(result['_body']).message;
+        };
+        err => console.log(err)
+
+      });
 
   }
 
@@ -121,7 +121,7 @@ today=new Date();
         // alert(JSON.parse(result['_body']).message);
         if (this.statuscar === 'success') {
           this.successMsg = JSON.parse(result['_body']).message;
-          this.hasCar=true;
+          this.hasCar = true;
           this.getUserCar(this.currentUserID);
 
         } else if ((this.statuscar === 'failure')) {
@@ -131,7 +131,7 @@ today=new Date();
 
       });
 
-}
+  }
 
   public getUserCar(user_id) {
 
@@ -153,7 +153,7 @@ today=new Date();
           this.hasCar = false;
 
         }
-       
+
 
       },
       err => console.log(err)
@@ -166,8 +166,8 @@ today=new Date();
     this.postride.userMobile = this.user.mobile;
     this.postride.user_type = this.user.userType;
     this.postride.Drivername = this.user['firstname'] + this.user['lastname'];
-    this.postride.carNumber=this.userCar.vehicle_num;
-    this.postride.carModel=this.userCar.model;
+    this.postride.carNumber = this.userCar.vehicle_num;
+    this.postride.carModel = this.userCar.model;
     console.log(JSON.stringify(this.postride));
 
     // this.headers = new Headers();
@@ -178,7 +178,8 @@ today=new Date();
     // }
     this.http.post("http://localhost/practiceapi/postrideapi.php", JSON.stringify(this.postride))
       .subscribe(result => {
-        this.postRideForm.reset();debugger;
+        this.postRideForm.reset();
+         debugger;
         console.log("posted Ride Succesfully");
         this.successMsg = JSON.parse(result['_body']).message;
         this.status = JSON.parse(result['_body']).status;

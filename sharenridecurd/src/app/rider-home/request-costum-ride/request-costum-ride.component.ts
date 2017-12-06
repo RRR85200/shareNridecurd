@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, PatternValidator } from '@angular/forms';
 import { User } from '../../shared/user';
 import { PostRide } from '../../shared/post-ride';
 import { Http, Headers, HttpModule } from '@angular/http';
@@ -31,7 +31,7 @@ export class RequestCostumRideComponent implements OnInit {
     this.requestRideForm = new FormGroup({
       'origin': new FormControl('', Validators.required),
       'destination': new FormControl('', Validators.required),
-      'seats': new FormControl('', Validators.required),
+      'seats': new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
       'date': new FormControl('', Validators.required)
     });
     this.user = JSON.parse(sessionStorage.getItem('currentuser'));
@@ -53,8 +53,8 @@ export class RequestCostumRideComponent implements OnInit {
 
     } else if ((new Date(this.requestRideForm.get('date').value) < this.today) &&
       this.requestRideForm.get('date').touched) {
-        console.log("selected date" +this.requestRideForm.get('date').value);
-        console.log("today" + this.today);
+      console.log("selected date" + this.requestRideForm.get('date').value);
+      console.log("today" + this.today);
       return true;
 
     } else if (!this.requestRideForm.valid) {
