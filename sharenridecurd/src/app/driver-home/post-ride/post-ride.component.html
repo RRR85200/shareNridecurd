@@ -231,7 +231,7 @@
         <br>
         <label>No of Seats</label>
         <div class="form-group">
-          <input type="number" placeholder="No of Seats" min="0" max="5" formControlName="seats" [(ngModel)]="postride.seats" id="seats" class="form-control">
+          <input type="number" placeholder="No of Seats" min="1" max="5" formControlName="seats" [(ngModel)]="postride.seats" id="seats" class="form-control">
         </div>
 
       </div>
@@ -239,7 +239,7 @@
 
       <div class="col-md-3">
         <br>
-        <label>Choose Start time</label>
+        <label>Choose start time</label>
         <div class="form-group">
           <input type="datetime-local" placeholder="Start Time" formControlName="date" [(ngModel)]="postride.ridedate" id="date" class="form-control">
 
@@ -255,20 +255,35 @@
         <div class="col-md-3">
           <label>Price/person</label>
           <div class="form-group">
-            <input type="number" placeholder="Enter price/person" min="0"  max="70" formControlName="price" [(ngModel)]="postride.price" id="price" class="form-control">
+            <input type="number" placeholder="Enter price/person" min="1"  max="70" formControlName="price" [(ngModel)]="postride.price" id="price" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <br>
           <div class="btn btn-group">
-            <button class="btn btn-primary" [disabled]="(!postRideForm.valid)" type="submit">POST</button>
+            <button class="btn btn-primary" [disabled]="!postRideForm.valid || validateRide() " type="submit">POST</button>
           </div>
         </div>
+
+      
+
+
       </div>
+      
     </div>
 </div>
+<div class="alert alert-danger" *ngIf="((this.postRideForm.get('destination').value === this.postRideForm.get('origin').value) &&
+(this.postRideForm.get('destination').touched && this.postRideForm.get('origin').touched))">
+Choose a different Destination</div>
+<div class="alert alert-danger" *ngIf="this.postRideForm.get('price').hasError('minMaxPrice') && this.postRideForm.get('price').touched" >Enter valid price between 1 and 70$</div>
+<div class="alert alert-danger" *ngIf="this.postRideForm.get('seats').hasError('minMax') && this.postRideForm.get('seats').touched" >Enter Seats between 1 and 6</div>
+<!-- <div class="alert alert-danger" *ngIf="timeselected < timetoday" > Hey..! Cannot Travel back in time..!</div> -->
+<div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateRideDate') && this.postRideForm.get('date').touched" >Enter valid date</div>
+
 
   </form>
+
+
 
 </div>
