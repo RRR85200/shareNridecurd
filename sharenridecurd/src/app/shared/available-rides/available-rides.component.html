@@ -145,11 +145,13 @@
 
                 </div>
                 <div *ngIf="(seats.value > rds.seats)" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be more than available seats</div>
+                <div *ngIf="(seats.value < 0 )" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be Negative value</div>
+                
                 <div class="col-md-2 pull-right">
                   <div class="btn btn-group">
 
 
-                    <button class="btn btn-primary" [disabled]="(seats.value > rds.seats) || (seats.value < 0)" type="submit" *ngIf="rds.user_id!==currentUserID"
+                    <button class="btn btn-primary" [disabled]="(seats.value > rds.seats) || (seats.value <= 0)" type="submit" *ngIf="rds.user_id!==currentUserID"
                       (click)="joinRide(rds,seats.value,trInput1)">Join</button>
 
                   </div>

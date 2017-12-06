@@ -41,48 +41,82 @@ export class PostRideComponent implements OnInit {
     //   this.destinations=['UCM main campus','Lee summit Campus','Walmart warrensburg','Sedali','Kansas City','Overland Park','Olathe','Independence','Shawnee',
     //   'KCI Airport','Kansas Zoo Area','Lone Jack','Centerview','Knob Knoster','Bristle Ridge','Post Oak','Lions Lake',
     //  'Dallas','Chicago'];
+    this.postride.ridedate = new Date();
     this.user = JSON.parse(sessionStorage.getItem("currentuser"));
     this.currentUserID = this.user['user_id'];
     this.getUserCar(this.currentUserID);
     this.campuses = ['UCM main campus', 'Lee summit Campus'];
     this.carDetails = new FormGroup({
-      'model': new FormControl('', Validators.required),
-      'year': new FormControl('', Validators.required),
-      'company': new FormControl('', Validators.required),
+      'model': new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*')]),
+      'year': new FormControl('', [Validators.required,this.minMaxYear]),
+      'company': new FormControl('',[ Validators.required,Validators.pattern('[A-Za-z\\s]+')]),
       'vehicleNum': new FormControl('', Validators.required),
-      'seats': new FormControl('', Validators.required)
+      'seats': new FormControl('', [Validators.required,this.minMax,Validators.pattern('[0-9]*')])
 
     });
     this.updateCar = new FormGroup({
 
-      'model': new FormControl(this.userCar.model, Validators.required),
-      'year': new FormControl(this.userCar.year, Validators.required),
-      'company': new FormControl(this.userCar.company, Validators.required),
-      'vehicleNum': new FormControl(this.userCar.vehicle_num, Validators.required),
-      'seats': new FormControl(this.userCar.seats, Validators.required)
+      'model': new FormControl(this.userCar.model, [Validators.required,Validators.pattern('^[a-zA-Z0-9]*')]),
+      'year': new FormControl(this.userCar.year,[Validators.required,this.minMaxYear]),
+      'company': new FormControl(this.userCar.company, [ Validators.required,Validators.pattern('[A-Za-z\\s]+')]),
+      'vehicleNum': new FormControl(this.userCar.vehicle_num,[Validators.required,Validators.pattern('^[a-zA-Z0-9]*')]),
+      'seats': new FormControl(this.userCar.seats, [Validators.required,this.minMax,Validators.pattern('[0-9]*')])
 
     });
     /////////////////////
     this.postRideForm = new FormGroup({
       'origin': new FormControl('UCM main campus', Validators.required),
       'destination': new FormControl('Lee summit Campus', Validators.required),
-      'seats': new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
+      'seats': new FormControl('', [Validators.required,this.minMax, Validators.pattern('[0-9]*')]),
       'date': new FormControl('', Validators.required),
-      'price': new FormControl('', Validators.required)
+      'price': new FormControl('', [Validators.required,this.minMaxPrice])
     });
     this.user = JSON.parse(sessionStorage.getItem("currentuser"));
-    console.log("USer identified from session" + this.user);
-
-    ///////
-    this.car.user_id = this.user['user_id'];
-    ////////
-
-    ////
+    console.log("USer identified from session" + this.user);   
+    this.car.user_id = this.user['user_id'];    
     this.useCar = JSON.parse(sessionStorage.getItem("userCar"));
-
-
-
   }
+
+  /////////////custom validators///////////
+  minMaxPrice(control: FormControl) {
+    return parseInt(control.value) > 0 && parseInt(control.value) <=70 ? null : {
+      minMaxPrice: true
+    }
+}
+  minMax(control: FormControl) {
+    return parseInt(control.value) > 0 && parseInt(control.value) <=5 ? null : {
+      minMax: true
+    }
+}
+
+  minMaxYear(control: FormControl) {
+    return parseInt(control.value) > 1980 && parseInt(control.value) <=2019 ? null : {
+      minMaxYear: true
+    }
+  }
+  public validateRide(): boolean {
+    if ((this.postRideForm.get('destination').value === this.postRideForm.get('origin').value) &&
+      (this.postRideForm.get('destination').touched && this.postRideForm.get('origin').touched)) {
+      return true;
+
+    } 
+    else if (      
+       (Date.parse((this.postRideForm.get('date').value).toString()) <= Date.parse((this.today).toString()))
+    ) {
+      debugger;
+      console.log("selected date" + Date.parse((this.postRideForm.get('date').value).toString()));
+      console.log("today" + Date.parse((this.today).toString()));
+      return true;
+
+    } else if (!this.postRideForm.valid) {
+      return true;
+    } else if (this.postRideForm.valid) {
+      return false;
+
+    }
+  }
+  //////
+
   public editCar() {
     this.isUpdateCar = false;
     document.getElementById("showcardetails").style.display = "none";
@@ -180,6 +214,7 @@ export class PostRideComponent implements OnInit {
       .subscribe(result => {
         this.postRideForm.reset();
          debugger;
+         this.postride.ridedate = new Date();
         console.log("posted Ride Succesfully");
         this.successMsg = JSON.parse(result['_body']).message;
         this.status = JSON.parse(result['_body']).status;
