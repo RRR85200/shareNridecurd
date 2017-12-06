@@ -97,10 +97,9 @@ class Coupons{
 		 
 	 }
   }
-  
-  function coupon_update(){
+   function coupon_update(){
 	  print_r("Hi");
-	  exit;
+	
 	 
     // query to insert record
     $query = "UPDATE
