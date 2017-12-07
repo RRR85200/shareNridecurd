@@ -35,15 +35,16 @@ export class DriverRideHistoryComponent implements OnInit {
   riderhistoryList:Array<RidesHistory>;
   constructor(private http:Http) {   
         
-        this.user=JSON.parse(sessionStorage.getItem("currentuser"));
-        this.currentUserId=this.user['user_id'];       
-        this.getDriverHistory(this.currentUserId);
-        this.getAvailable_coupon();
-        this.getUserCoupon(this.currentUserId);
-        this.getRiderHistory(this.currentUserId);
        }
 
   ngOnInit() {
+    this.user=JSON.parse(sessionStorage.getItem("currentuser"));
+    this.currentUserId=this.user['user_id'];       
+    this.getDriverHistory(this.currentUserId);
+    this.getAvailable_coupon();
+    this.getUserCoupon(this.currentUserId);
+    this.getRiderHistory(this.currentUserId);
+   
   }
 
 
