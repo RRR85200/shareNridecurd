@@ -26,7 +26,7 @@
 
                             </tr>
                             <tr *ngIf="noUserCoup">
-                                <div class="alert alert-danger" role="alert" *ngIf="noavailablerides">
+                                <div class="alert alert-danger" role="alert" *ngIf="noUserCoup">
                                     No Coupon available ..! Buy Coupons and enjoy aweosme Deals on Rides..!
                                 </div>
                             </tr>
@@ -58,9 +58,13 @@
                     </div>
                     <div class="col-md-8">
                         <label>Buy Coupons </label>
+                        <div  class="alert alert-info" *ngIf="usercoupon.coupon_rides>0" > 
+                            Exciting  Special Offers for Holidays..!Use your Current Coupons to Avail....!
+                        </div>
                         <table class="table table-striped">
                             <tr>
                                 Available Coupons.
+                            
                             </tr>
                             <br>
 
@@ -98,7 +102,7 @@
                                     <div class="col-md-2">
                                         <br>
                                         <br>
-                                        <button type="button" (click)="buyCoupon(coopn)" class="btn btn-warning">Buy</button>
+                                        <button type="button" [disabled]="usercoupon.coupon_rides>0" (click)="buyCoupon(coopn)" class="btn btn-warning">Buy</button>
 
                                     </div>
 

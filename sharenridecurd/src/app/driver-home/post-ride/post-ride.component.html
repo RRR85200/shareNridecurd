@@ -50,7 +50,8 @@
           <br>
           <label>Car Model</label>
           <div class="form-group">
-            <input type="text" placeholder="Car Model" formControlName="model"   pattern="[a-zA-Z ]*" [(ngModel)]="userCar.model" id="model" class="form-control">
+            <input type="text" placeholder="Car Model" formControlName="model" [(ngModel)]="userCar.model" id="model"
+              class="form-control">
           </div>
         </div>
 
@@ -67,7 +68,8 @@
           <br>
           <label>Year</label>
           <div class="form-group">
-            <input type="number" placeholder="Make Year" formControlName="year"  min="1980" max="2020" [(ngModel)]="userCar.year" id="year" class="form-control">
+            <input type="number" placeholder="Make Year" formControlName="year" min="1980" max="2020" [(ngModel)]="userCar.year" id="year"
+              class="form-control">
           </div>
         </div>
 
@@ -76,7 +78,8 @@
           <br>
           <label>No of Seats</label>
           <div class="form-group">
-            <input type="number" placeholder="No of Seats" formControlName="seats" min="0" max="5" [(ngModel)]="userCar.seats" id="seats" class="form-control">
+            <input type="number" placeholder="No of Seats" formControlName="seats" min="1" max="5" [(ngModel)]="userCar.seats" id="seats"
+              class="form-control">
           </div>
         </div>
 
@@ -102,6 +105,39 @@
 
 
     </form>
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('pattern')
+    && this.updateCar.get('model').touched">Enter Only Alphabets or Alphanumberic</div>
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('required')
+    && this.updateCar.get('model').touched">Car Model required</div>
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('pattern')
+    && this.updateCar.get('model').touched">should Be alphabetical or AlphaNumerical</div>
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('maxLength')
+    && this.updateCar.get('model').touched">Cannot be More than 10 Characters</div>
+
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('year').hasError('pattern')
+    && this.updateCar.get('year').touched">Enter Valid Year between 1980-2000</div>
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('year').hasError('minMaxYear')
+    && this.updateCar.get('year').touched">Choose a car Model between 1980-2020</div>
+
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('seats').hasError('required')
+    && this.updateCar.get('seats').touched">Car Model Year required</div>
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('seats').hasError('minMax')
+     && this.updateCar.get('seats').touched">Enter Seats between 1 and 6</div>
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('seats').hasError('required')
+     && this.updateCar.get('seats').touched">Seats required</div>
+
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('required')
+     && this.updateCar.get('vehicleNum').touched">Vehicle Number Needed</div>
+     <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('maxLength')
+     && this.updateCar.get('vehicleNum').touched">Cannot be More than 7 characters</div>
+     <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('pattern')
+     && this.updateCar.get('vehicleNum').touched">Registration should have Alphabets or AplaNumberic characters</div>
+
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('company').hasError('required')
+     && this.updateCar.get('company').touched">Car company required</div>
+     <div class="alert alert-warning" *ngIf="this.updateCar.get('company').hasError('pattern')
+     && this.updateCar.get('company').touched">Car Company Must has a valid Alpabetic characters </div>
+
   </div>
 
   <div class="row">
@@ -134,7 +170,8 @@
           <br>
           <label>Car Maker</label>
           <div class="form-group">
-            <input type="text" placeholder="Car Company" pattern="[a-zA-Z ]*" formControlName="company" [(ngModel)]="car.company" id="company" class="form-control">
+            <input type="text" placeholder="Car Company" pattern="[a-zA-Z ]*" formControlName="company" [(ngModel)]="car.company" id="company"
+              class="form-control">
           </div>
         </div>
 
@@ -142,7 +179,8 @@
           <br>
           <label>Year</label>
           <div class="form-group">
-            <input type="number" placeholder="Make Year" min="1980" max="2020"  formControlName="year" [(ngModel)]="car.year" id="year" class="form-control">
+            <input type="number" placeholder="Make Year" min="1980" max="2020" formControlName="year" [(ngModel)]="car.year" id="year"
+              class="form-control">
           </div>
         </div>
 
@@ -151,7 +189,8 @@
           <br>
           <label>No of Seats</label>
           <div class="form-group">
-            <input type="number" placeholder="No of Seats"  min="0" max="5"  formControlName="seats" [(ngModel)]="car.seats" id="seats" class="form-control">
+            <input type="number" placeholder="No of Seats" min="0" max="5" formControlName="seats" [(ngModel)]="car.seats" id="seats"
+              class="form-control">
           </div>
         </div>
 
@@ -177,6 +216,39 @@
 
 
     </form>
+
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('model').hasError('pattern')
+    && this.carDetails.get('model').touched">Enter Only Alphabets or Alphanumberic</div>
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('model').hasError('required')
+    && this.carDetails.get('model').touched">Car Model required</div>
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('model').hasError('pattern')
+    && this.carDetails.get('pattern').touched">should Be alphabetical or AlphaNumerical</div>
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('model').hasError('maxLength')
+    && this.carDetails.get('maxLength').touched">Cannot be More than 10 Characters</div>
+
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('year').hasError('pattern')
+    && this.carDetails.get('year').touched">Enter Valid Year between 1980-2000</div>
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('year').hasError('minMaxYear')
+    && this.carDetails.get('year').touched">Choose a car Model between 1980-2020</div>
+
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('seats').hasError('required')
+    && this.carDetails.get('seats').touched">Car Model Year required</div>
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('seats').hasError('minMax')
+     && this.carDetails.get('seats').touched">Enter Seats between 1 and 6</div>
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('seats').hasError('required')
+     && this.carDetails.get('seats').touched">Seats required</div>
+
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('required')
+     && this.carDetails.get('vehicleNum').touched">Vehicle Number Needed</div>
+     <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('maxLength')
+     && this.carDetails.get('vehicleNum').touched">Cannot be More than 7 characters</div>
+     <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('pattern')
+     && this.carDetails.get('vehicleNum').touched">Registration should have Alphabets or AplaNumberic characters</div>
+
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('company').hasError('required')
+     && this.carDetails.get('company').touched">Car company required</div>
+     <div class="alert alert-warning" *ngIf="this.carDetails.get('company').hasError('pattern')
+     && this.carDetails.get('company').touched">Car Company Must has a valid Alpabetic characters </div>
   </div>
 
   <br>
@@ -204,7 +276,7 @@
         <label>Ride Stating Location</label>
         <div class="form-group">
           <label class="center-block">Origin:
-            <select class="form-control"  name="origin" [(ngModel)]="postride.origin" formControlName="origin">
+            <select class="form-control" name="origin" [(ngModel)]="postride.origin" formControlName="origin">
               <option *ngFor="let destination of destinations" [value]="destination">{{destination}}</option>
             </select>
           </label>
@@ -215,23 +287,19 @@
         <label>Destination</label>
         <div class="form-group">
           <label class="center-block">To:
-            <select class="form-control"  name="destination" formControlName="destination" [(ngModel)]="postride.destination" >
+            <select class="form-control" name="destination" formControlName="destination" [(ngModel)]="postride.destination">
               <option *ngFor="let destination of destinations" [value]="destination">{{destination}}</option>
             </select>
           </label>
-          <!-- <span  *ngIf='(postRideForm.get("postride.origin").value===postRideForm.get("postride.destination").value) &&
-          postRideForm.get("postride.origin").touched && postRideForm.get("postride.destination").touched' class='help-block'>
-              origin and destination cannot be same</span> -->
         </div>
-        <!-- <div *ngIf="!postRideForm.get("origin").valid && !postRideForm.get("destination").valid && (postRideForm.get("origin").touched.value ==postRideForm.get("destination").touched.value) "  class="error-msg">Choose different destination</div> -->
-
       </div>
 
       <div class="col-md-3">
         <br>
         <label>No of Seats</label>
         <div class="form-group">
-          <input type="number" placeholder="No of Seats" min="1" max="5" formControlName="seats" [(ngModel)]="postride.seats" id="seats" class="form-control">
+          <input type="number" placeholder="No of Seats" min="1" max="5" formControlName="seats" [(ngModel)]="postride.seats" id="seats"
+            class="form-control">
         </div>
 
       </div>
@@ -246,40 +314,41 @@
         </div>
       </div>
 
-    <br>
+      <br>
 
-    <div class="row">
+      <div class="row">
 
-      <div class="col-md-12">
-        <div class="col-md-6"></div>
-        <div class="col-md-3">
-          <label>Price/person</label>
-          <div class="form-group">
-            <input type="number" placeholder="Enter price/person" min="1"  max="70" formControlName="price" [(ngModel)]="postride.price" id="price" class="form-control">
+        <div class="col-md-12">
+          <div class="col-md-6"></div>
+          <div class="col-md-3">
+            <label>Price/person</label>
+            <div class="form-group">
+              <input type="number" placeholder="Enter price/person" min="1" max="70" formControlName="price" [(ngModel)]="postride.price"
+                id="price" class="form-control">
+            </div>
           </div>
-        </div>
 
-        <div class="col-md-3">
-          <br>
-          <div class="btn btn-group">
-            <button class="btn btn-primary" [disabled]="!postRideForm.valid || validateRide() " type="submit">POST</button>
+          <div class="col-md-3">
+            <br>
+            <div class="btn btn-group">
+              <button class="btn btn-primary" [disabled]="!postRideForm.valid || validateRide() " type="submit">POST</button>
+            </div>
           </div>
+
+
+
+
         </div>
-
-      
-
 
       </div>
-      
     </div>
-</div>
-<div class="alert alert-danger" *ngIf="((this.postRideForm.get('destination').value === this.postRideForm.get('origin').value) &&
+    <div class="alert alert-danger" *ngIf="((this.postRideForm.get('destination').value === this.postRideForm.get('origin').value) &&
 (this.postRideForm.get('destination').touched && this.postRideForm.get('origin').touched))">
-Choose a different Destination</div>
-<div class="alert alert-danger" *ngIf="this.postRideForm.get('price').hasError('minMaxPrice') && this.postRideForm.get('price').touched" >Enter valid price between 1 and 70$</div>
-<div class="alert alert-danger" *ngIf="this.postRideForm.get('seats').hasError('minMax') && this.postRideForm.get('seats').touched" >Enter Seats between 1 and 6</div>
-<!-- <div class="alert alert-danger" *ngIf="timeselected < timetoday" > Hey..! Cannot Travel back in time..!</div> -->
-<div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateRideDate') && this.postRideForm.get('date').touched" >Enter valid date</div>
+      Choose a different Destination</div>
+    <div class="alert alert-danger" *ngIf="this.postRideForm.get('price').hasError('minMaxPrice') && this.postRideForm.get('price').touched">Enter valid price between 1 and 70$</div>
+    <div class="alert alert-danger" *ngIf="this.postRideForm.get('seats').hasError('minMax') && this.postRideForm.get('seats').touched">Enter Seats between 1 and 6</div>
+    <!-- <div class="alert alert-danger" *ngIf="timeselected < timetoday" > Hey..! Cannot Travel back in time..!</div> -->
+    <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateRideDate') && this.postRideForm.get('date').touched">Enter valid date</div>
 
 
   </form>

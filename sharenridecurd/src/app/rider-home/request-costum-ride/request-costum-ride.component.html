@@ -17,11 +17,11 @@
 
           <div class="form-group">
             <br>
-            <label class="center-block">From/Origin:
+            <label class="center-block">From/Origin:   </label>
               <select class="form-control" [(ngModel)]="requestride.origin" formControlName="origin">
                 <option *ngFor="let origin of destinations" [value]="origin">{{origin}}</option>
               </select>
-            </label>
+         
           </div>
         </div>
 
@@ -29,11 +29,11 @@
 
           <div class="form-group">
             <br>
-            <label class="center-block">To/ Destination:
+            <label class="center-block">To/ Destination:</label>
               <select class="form-control" formControlName="destination" [(ngModel)]="requestride.destination">
                 <option *ngFor="let destination of destinations" [value]="destination">{{destination}}</option>
               </select>
-            </label>
+            
           </div>
 
         </div>
@@ -41,7 +41,7 @@
           <br>
           <label>No of Seats</label>
           <div class="form-group">
-            <input type="number" placeholder="No of Seats"   min="1" max="5" formControlName="seats" [(ngModel)]="requestride.seats" id="seats"
+            <input type="number" placeholder="No of Seats" min="1" max="5" formControlName="seats" [(ngModel)]="requestride.seats" id="seats"
               class="form-control">
           </div>
         </div>
@@ -63,14 +63,10 @@
       <div class="alert alert-danger" *ngIf="((this.requestRideForm.get('destination').value === this.requestRideForm.get('origin').value) &&
               (this.requestRideForm.get('destination').touched && this.requestRideForm.get('origin').touched))">
         Choose a different Destination</div>
-    
-      <!-- {{this.requestRideForm.get('date').value | date: 'dd-MM-yyyy HH:mm:ss'}} {{today | date: 'dd-MM-yyyy HH:mm:ss'}} -->
-      <!-- <div class="alert alert-danger" *ngIf="this.requestRideForm.get('date').touched &&
-             ((this.requestRideForm.get('date').value.toString() | date: 'dd-MM-yyyy HH:mm:ss') < (this.today | date: 'dd-MM-yyyy HH:mm:ss'))">
-             Hey..! Cannot Travel back in time..!  </div> -->
-             <div class="alert alert-danger" *ngIf="this.requestRideForm.get('seats').hasError('minMax') && this.requestRideForm.get('seats').touched" >Enter Seats between 1 and 6</div>
-             <!-- <div class="alert alert-danger" *ngIf="timeselected < timetoday" > Hey..! Cannot Travel back in time..!</div> -->
-             <div class="alert alert-danger" *ngIf="this.requestRideForm.get('date').hasError('validateRideDate') && this.requestRideForm.get('date').touched" >Enter valid date</div>
+
+      <div class="alert alert-danger" *ngIf="this.requestRideForm.get('seats').hasError('minMax') && this.requestRideForm.get('seats').touched">Enter Seats between 1 and 6</div>
+
+      <div class="alert alert-danger" *ngIf="this.requestRideForm.get('date').hasError('validateRideDate') && this.requestRideForm.get('date').touched">Enter valid date</div>
 
 
     </form>

@@ -18,30 +18,32 @@ export class RiderRideHistoryComponent implements OnInit {
 
   user = new User();
   allcoupon: Array<Coupon>;
-  usercoupon: Coupon;
+  usercoupon = new Coupon();
   buycoupon = new Coupon();
   currentride = new CurrentRides();
   postedRides = new PostRide();
   historyRides = new RidesHistory();
   //availRides:PostRide = [];
   historyList: Array<RidesHistory>;
-  public noUserCoup: boolean = false;
-  public noRiderrides: boolean = false;
-
-
   successMsg: string;
   status: string;
   currentUserId: any;
+  public noavailablerides: boolean = false;
+  public noRiderrides: boolean = false;
+  public noUserCoup: boolean = false;
+  riderhistoryList: Array<RidesHistory>;
+
   constructor(private http: Http) {
 
+
+  }
+
+  ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem("currentuser"));
     this.currentUserId = this.user['user_id'];
     this.getRiderHistory(this.currentUserId);
     this.getAvailable_coupon();
     this.getUserCoupon(this.currentUserId);
-  }
-
-  ngOnInit() {
   }
 
 
@@ -78,8 +80,6 @@ export class RiderRideHistoryComponent implements OnInit {
     this.http.get('http://localhost/practiceapi/getAllCouponsapi.php')
       //.(response => response.json())
       .subscribe(result => {
-        debugger;
-        debugger;
         this.allcoupon = result.json();
         console.log(this.allcoupon);
 
@@ -89,30 +89,31 @@ export class RiderRideHistoryComponent implements OnInit {
 
   }
 
-  public buyCoupon(coop) {
+  public buyCoupon(coop){
     debugger;
-    this.buycoupon.coupon_code = coop.coupon_code;
-    this.buycoupon.coupon_type = coop.coupon_type;
-    this.buycoupon.coupon_validity = coop.coupon_validity;
-    this.buycoupon.coupon_price = coop.coupon_price;
-    this.buycoupon.coupon_seq = coop.coupon_seq;
-    this.buycoupon.user_id = this.currentUserId;
-    this.buycoupon.coupon_rides = coop.coupon_rides;
+    this.buycoupon.coupon_code=coop.coupon_code;
+    this.buycoupon.coupon_type=coop.coupon_type;
+    this.buycoupon.coupon_validity=coop.coupon_validity;
+    this.buycoupon.coupon_price=coop.coupon_price;
+    this.buycoupon.coupon_seq=coop.coupon_seq;
+    this.buycoupon.user_id= this.currentUserId;
+    this.buycoupon.coupon_rides=coop.coupon_rides;
     console.log(this.buycoupon);
-    this.http.post("http://localhost/practiceapi/buyCouponApi.php", JSON.stringify(this.buycoupon))
-
-      .subscribe(result => {
+    this.http.post("http://localhost/practiceapi/buyCouponApi.php", JSON.stringify(this.buycoupon))    
+    
+     .subscribe(result => {
+      this.successMsg = JSON.parse(result['_body']).message;
+      this.status = JSON.parse(result['_body']).status;
+     // alert(JSON.parse(result['_body']).message);
+      if(this.status === 'success'){
         this.successMsg = JSON.parse(result['_body']).message;
-        this.status = JSON.parse(result['_body']).status;
-        // alert(JSON.parse(result['_body']).message);
-        if (this.status === 'success') {
-          this.successMsg = JSON.parse(result['_body']).message;
-
-        } else if ((this.status === 'failure')) {
-          this.successMsg = JSON.parse(result['_body']).message;
-        }
-      });
-
+        this.getUserCoupon(this.currentUserId);
+        this.noUserCoup=false;          
+        } else if((this.status === 'failure')){
+        this.successMsg = JSON.parse(result['_body']).message;
+      }
+  });   
+    
 
   }
 
@@ -122,7 +123,8 @@ export class RiderRideHistoryComponent implements OnInit {
       "user_id": user_id
     }
     this.http.post('http://localhost/practiceapi/getUserCouponapi.php', user)
-         .subscribe(result => {
+      //.(response => response.json())     
+      .subscribe(result => {
         debugger;
         let gotCoupon: Array<Coupon> = result.json();
         if (gotCoupon.length > 0) {
