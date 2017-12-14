@@ -111,7 +111,8 @@
                     <!-- <input type="text" placeholder="Enter no of seats" [(ngModel)]="'seat'+i"> -->
                     <!-- <input type="text" col="10" placeholder="Enter no of Seats" ngModel #seats name="noSeats" (blur)="tr.value=rds.price*seats.value">
                                         <div *ngIf="seats.value>=rds.seats" class="alert alert-danger">Cannot be more than available seats</div> -->
-                    <input type="text" placeholder="Enter no of Seats" ngModel #seats name="noSeats">
+                    <input type="number" placeholder="Enter no of Seats" ngModel #seats name="noSeats">
+
                   </div>
                   <div class="col-md-2">
                     <label for="coupon">Available coupon</label>
@@ -145,7 +146,7 @@
 
                 </div>
                 <div *ngIf="(seats.value > rds.seats)" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be more than available seats</div>
-                <div *ngIf="(seats.value < 0 )" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be Negative value</div>
+                <div *ngIf="(seats.value <= 0 )" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be Negative value or Zero</div>
                 
                 <div class="col-md-2 pull-right">
                   <div class="btn btn-group">
@@ -276,6 +277,7 @@
                 </div>
                 <div *ngIf="(seats.value > rds.seats)" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be more than available seats</div>
                 <!-- <div *ngIf="(seats.value==0)" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Seats should be more than Zero</div> -->
+                <div *ngIf="(seats.value <= 0 )" class=" col-md-4 alert alert-warning" style="margin-left:400px;">Cannot be Negative value or Zero</div>
                 <div class="col-md-2 pull-right">
                   <div class="btn btn-group">
                     <button class="btn btn-primary" [disabled]="(seats.value > rds.seats) || (seats.value <= 0)" type="submit" *ngIf="rds.user_id!==currentUserID"

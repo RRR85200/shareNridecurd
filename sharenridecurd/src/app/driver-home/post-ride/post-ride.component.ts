@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, PatternValidator } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, PatternValidator, MaxLengthValidator } from '@angular/forms';
 import { User } from '../../shared/user';
 import { PostRide } from '../../shared/post-ride';
 import { Car } from '../../shared/car';
@@ -50,16 +50,17 @@ export class PostRideComponent implements OnInit {
       'model': new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*'),Validators.maxLength(7)]),
       'year': new FormControl('', [Validators.required,this.minMaxYear,Validators.pattern('[0-9]*')]),
       'company': new FormControl('',[ Validators.required,Validators.pattern('[A-Za-z\\s]+')]),
-      'vehicleNum': new FormControl('', [Validators.required,Validators.maxLength(7),Validators.pattern('^[a-zA-Z0-9]*')]),
+     'vehicleNum': new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*'),Validators.maxLength(7)]),
+     // 'vehicleNum': new FormControl('', [Validators.required,Validators.maxLength(7)]),
       'seats': new FormControl('', [Validators.required,this.minMax,Validators.pattern('[0-9]*')])
 
     });
     this.updateCar = new FormGroup({
 
-      'model': new FormControl(this.userCar.model,[Validators.required,Validators.maxLength(10),Validators.pattern('^[a-zA-Z0-9]*')]),
+      'model': new FormControl(this.userCar.model,[Validators.required,Validators.pattern('^[a-zA-Z0-9]*'),Validators.maxLength(7)]),
       'year': new FormControl(this.userCar.year,[Validators.required,this.minMaxYear,Validators.pattern('[0-9]*')]),
       'company': new FormControl(this.userCar.company, [ Validators.required,Validators.pattern('[A-Za-z\\s]+')]),
-      'vehicleNum': new FormControl(this.userCar.vehicle_num,[Validators.required,Validators.maxLength(7),Validators.pattern('^[a-zA-Z0-9]*')]),
+      'vehicleNum': new FormControl(this.userCar.vehicle_num,[Validators.required,Validators.pattern('^[a-zA-Z0-9]*'),Validators.maxLength(7)]),
       'seats': new FormControl(this.userCar.seats, [Validators.required,this.minMax,Validators.pattern('[0-9]*')])
 
     });
@@ -68,7 +69,7 @@ export class PostRideComponent implements OnInit {
       'origin': new FormControl('UCM main campus', Validators.required),
       'destination': new FormControl('Lee summit Campus', Validators.required),
       'seats': new FormControl('', [Validators.required,this.minMax, Validators.pattern('[0-9]*')]),
-      'date': new FormControl('', Validators.required),
+      'date': new FormControl('',[Validators.required]),
       'price': new FormControl('', [Validators.required,this.minMaxPrice,Validators.pattern('[0-9]*')])
     });
     this.user = JSON.parse(sessionStorage.getItem("currentuser"));
@@ -87,6 +88,16 @@ export class PostRideComponent implements OnInit {
     return parseInt(control.value) > 0 && parseInt(control.value) <=5 ? null : {
       minMax: true
     }
+}
+validateYear(control:FormControl){
+ let currentDate=new Date().toUTCString();
+let selectedDate=control.value.toUTCString();
+console.log(currentDate +"this is today");
+console.log(selectedDate+"this is selected date");
+return selectedDate>currentDate ? null :{
+  validateYear:true
+}
+
 }
 
   minMaxYear(control: FormControl) {
