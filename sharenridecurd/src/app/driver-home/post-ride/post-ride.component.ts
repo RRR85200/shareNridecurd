@@ -70,7 +70,7 @@ export class PostRideComponent implements OnInit {
       'origin': new FormControl('UCM main campus', Validators.required),
       'destination': new FormControl('Lee summit Campus', Validators.required),
       'seats': new FormControl('', [Validators.required, this.minMax, Validators.pattern('[0-9]*')]),
-      'date': new FormControl('', [Validators.required]),
+      'date': new FormControl('', [Validators.required,this.validateYear]),
       'price': new FormControl('', [Validators.required, this.minMaxPrice, Validators.pattern('[0-9]*')])
     });
     this.user = JSON.parse(sessionStorage.getItem("currentuser"));
@@ -91,11 +91,8 @@ export class PostRideComponent implements OnInit {
     }
   }
   validateYear(control: FormControl) {
-    let currentDate = new Date().toUTCString();
-    let selectedDate = control.value.toUTCString();
-    console.log(currentDate + "this is today");
-    console.log(selectedDate + "this is selected date");
-    return selectedDate > currentDate ? null : {
+ 
+    return Date.parse(control.value) > (Date.parse(new Date().toUTCString()))? null : {
       validateYear: true
     }
 

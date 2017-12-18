@@ -33,7 +33,7 @@ export class RequestCostumRideComponent implements OnInit {
       'origin': new FormControl('', Validators.required),
       'destination': new FormControl('', Validators.required),
       'seats': new FormControl('', [Validators.required,this.minMax, Validators.pattern('[0-9]*')]),
-      'date': new FormControl('',[Validators.required])
+      'date': new FormControl('',[Validators.required,this.validateYear])
     });
     this.user = JSON.parse(sessionStorage.getItem('currentuser'));
     console.log('USer identified from session' + this.user);
@@ -58,6 +58,13 @@ validateRideDate(control:FormControl){
   }
 
 }
+validateYear(control: FormControl) {
+  
+     return Date.parse(control.value) > (Date.parse(new Date().toUTCString()))? null : {
+       validateYear: true
+     }
+ 
+   }
 
   public validateRide(): boolean {
     if ((this.requestRideForm.get('destination').value === this.requestRideForm.get('origin').value) &&
