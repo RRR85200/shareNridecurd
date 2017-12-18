@@ -125,6 +125,28 @@ echo json_encode($rows);
 return json_encode($rows);
   
 }
+
+function getDriverAvailablity(){
+	
+//select * from current_rides where ride_driver_id="124" and ridetime between DATE_ADD("2017-12-13 20:47:001", INTERVAL -2 HOUR) and DATE_ADD("2017-12-13 20:47:00", INTERVAL 2 HOUR)//
+	
+	$query="select * from " . $this->table_name . " WHERE ride_driver_id='" .$this->DriverId. "'and 
+	ridetime between DATE_ADD('".$this->RideDate."', INTERVAL -2 HOUR) and DATE_ADD('".$this->RideDate."', INTERVAL 2 HOUR)";
+	
+	 $this->DriverId=htmlspecialchars(strip_tags($this->DriverId));
+	 $this->RideDate=htmlspecialchars(strip_tags($this->RideDate));
+	 
+	  $stmt = $this->conn->prepare( $query );
+
+ 
+    // execute query
+    $stmt->execute();
+ $rows = array();
+ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode($rows);
+return json_encode($rows);
+	
+}
 function currentRiderrides_get(){
  
     // query to read single record

@@ -43,15 +43,14 @@
 
       <div class="col-md-12">
 
-        <h2 style="color:blue;">Update Car car Details</h2>
+        <h2 style="color:blue;">Update Car Details</h2>
         <br>
 
         <div class="col-md-2">
           <br>
           <label>Car Model</label>
           <div class="form-group">
-            <input type="text" placeholder="Car Model" formControlName="model" [(ngModel)]="userCar.model" id="model"
-              class="form-control">
+            <input type="text" placeholder="Car Model" formControlName="model" [(ngModel)]="userCar.model" id="model" class="form-control">
           </div>
         </div>
 
@@ -60,9 +59,11 @@
           <br>
           <label>Car Maker</label>
           <div class="form-group">
-            <input type="text" placeholder="Car Company" formControlName="company" [(ngModel)]="userCar.company" id="company" class="form-control">
+            <input type="text" placeholder="Car Company" name="company" formControlName="company" [(ngModel)]="userCar.company" id="company"
+              class="form-control">
           </div>
         </div>
+
 
         <div class="col-md-2">
           <br>
@@ -105,14 +106,18 @@
 
 
     </form>
+
     <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('pattern')
     && this.updateCar.get('model').touched">Enter Only Alphabets or Alphanumberic</div>
+
     <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('required')
     && this.updateCar.get('model').touched">Car Model required</div>
     <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('pattern')
     && this.updateCar.get('model').touched">should Be alphabetical or AlphaNumerical</div>
     <div class="alert alert-warning" *ngIf="this.updateCar.get('model').hasError('maxLength')
     && this.updateCar.get('model').touched">Cannot be More than 10 Characters</div>
+    <div class="alert alert-info" *ngIf="this.updateCar.get('model').touched && this.updateCar.get('model').invalid">
+      Car model Should be aphanmubric characters and Max length of 7</div>
 
     <div class="alert alert-warning" *ngIf="this.updateCar.get('year').hasError('pattern')
     && this.updateCar.get('year').touched">Enter Valid Year between 1980-2000</div>
@@ -128,14 +133,17 @@
 
     <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('required')
      && this.updateCar.get('vehicleNum').touched">Vehicle Number Needed</div>
-     <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('maxLength')
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('maxLength')
      && this.updateCar.get('vehicleNum').touched">Cannot be More than 7 characters</div>
-     <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('pattern')
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('vehicleNum').hasError('pattern')
      && this.updateCar.get('vehicleNum').touched">Registration should have Alphabets or AplaNumberic characters</div>
+    <div class="alert alert-info" *ngIf="this.updateCar.get('vehicleNum').touched && this.updateCar.get('vehicleNum').invalid">
+      Registration number Should be aphanmubric characters and Max length of 7</div>
+
 
     <div class="alert alert-warning" *ngIf="this.updateCar.get('company').hasError('required')
      && this.updateCar.get('company').touched">Car company required</div>
-     <div class="alert alert-warning" *ngIf="this.updateCar.get('company').hasError('pattern')
+    <div class="alert alert-warning" *ngIf="this.updateCar.get('company').hasError('pattern')
      && this.updateCar.get('company').touched">Car Company Must has a valid Alpabetic characters </div>
 
   </div>
@@ -225,7 +233,8 @@
     && this.carDetails.get('pattern').touched">should Be alphabetical or AlphaNumerical</div>
     <div class="alert alert-warning" *ngIf="this.carDetails.get('model').hasError('maxLength')
     && this.carDetails.get('maxLength').touched">Cannot be More than 10 Characters</div>
-
+    <div class="alert alert-info" *ngIf="this.carDetails.get('model').touched && this.carDetails.get('model').invalid">
+      Car model Should be aphanmubric characters and Max length of 7</div>
     <div class="alert alert-warning" *ngIf="this.carDetails.get('year').hasError('pattern')
     && this.carDetails.get('year').touched">Enter Valid Year between 1980-2000</div>
     <div class="alert alert-warning" *ngIf="this.carDetails.get('year').hasError('minMaxYear')
@@ -240,14 +249,16 @@
 
     <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('required')
      && this.carDetails.get('vehicleNum').touched">Vehicle Number Needed</div>
-     <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('maxLength')
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('maxLength')
      && this.carDetails.get('vehicleNum').touched">Cannot be More than 7 characters</div>
-     <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('pattern')
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('vehicleNum').hasError('pattern')
      && this.carDetails.get('vehicleNum').touched">Registration should have Alphabets or AplaNumberic characters</div>
+    <div class="alert alert-info" *ngIf="this.carDetails.get('vehicleNum').touched && this.carDetails.get('vehicleNum').invalid">
+      Registration number Should be aphanmubric characters and Max length of 7</div>
 
     <div class="alert alert-warning" *ngIf="this.carDetails.get('company').hasError('required')
      && this.carDetails.get('company').touched">Car company required</div>
-     <div class="alert alert-warning" *ngIf="this.carDetails.get('company').hasError('pattern')
+    <div class="alert alert-warning" *ngIf="this.carDetails.get('company').hasError('pattern')
      && this.carDetails.get('company').touched">Car Company Must has a valid Alpabetic characters </div>
   </div>
 
@@ -262,6 +273,9 @@
     <div class="alert alert-success" role="alert" *ngIf="status === 'success'">
       {{successMsg}}
     </div>
+  </div>
+  <div class="alert alert-danger" *ngIf=" postRideStatus">
+      Hey..! You got a ride scheduled within 2 hours Interval of selected date...Please check your Current Rides and Posted Rides.
   </div>
 
   <form [formGroup]="postRideForm" (ngSubmit)="createRide()">
@@ -349,7 +363,9 @@
     <div class="alert alert-danger" *ngIf="this.postRideForm.get('seats').hasError('minMax') && this.postRideForm.get('seats').touched">Enter Seats between 1 and 6</div>
     <!-- <div class="alert alert-danger" *ngIf="timeselected < timetoday" > Hey..! Cannot Travel back in time..!</div> -->
     <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateRideDate') && this.postRideForm.get('date').touched">Enter valid date</div>
-
+    <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').touched && this.postRideForm.get('date').invalid">
+        <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateYear') && this.postRideForm.get('date').touched">Hey Time travel is Not possible</div>
+ Date should be Greater than today...!</div>
 
   </form>
 

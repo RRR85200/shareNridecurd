@@ -26,6 +26,7 @@ export class DriverCustomRidesComponent implements OnInit {
   public noavailablerides: boolean = false;
   public userCar: Car;
   public useCar: Car;
+  public driverAvailabity=false;
 
 
 
@@ -102,26 +103,64 @@ export class DriverCustomRidesComponent implements OnInit {
     this.currentride.carNumber = this.userCar.vehicle_num;
     this.currentride.seats = rds.seats;
     this.currentride.price = eprice;
+    debugger;
+    let checkDetails = {
+      "driver_id": this.currentride.driver_id ,
+      "ridetime": this.currentride.ridetime,
+      "user_id":this.currentride.driver_id,
+      "ridedate":this.currentride.ridetime
+    };
 
     console.log(this.currentride);
-    this.http.post("http://localhost/practiceapi/insertcurrentrideapi.php", JSON.stringify(this.currentride))
-
-      .subscribe(result => {
-        this.successMsg = JSON.parse(result['_body']).message;
-        this.status = JSON.parse(result['_body']).status;
-        // alert(JSON.parse(result['_body']).message);
-        if (this.status === 'success') {
-          this.successMsg = JSON.parse(result['_body']).message;
-          this.http.post("http://localhost/practiceapi/deleteAvailableRideapi.php",rds)
+    debugger;
+    this.http.post("http://localhost/practiceapi/getDriverPostedRidesAvailabilityapi.php", JSON.stringify(checkDetails))
+    .subscribe(result => {
+      debugger;
+      let info = result.json();
+      if (info.length == 0) {
+        this.driverAvailabity = false;
+       this.http.post("http://localhost/practiceapi/getDriverAvailabilityapi.php", JSON.stringify(checkDetails))
           .subscribe(result => {
-            console.log(result);
-            this.getAvailableCostumnride();
+            debugger;
+            let resp = result.json();
+             if (resp.length == 0) {
+              this.driverAvailabity = false;
+              this.http.post("http://localhost/practiceapi/insertcurrentrideapi.php", JSON.stringify(this.currentride))
+              
+                    .subscribe(result => {
+                      debugger;
+                      this.successMsg = JSON.parse(result['_body']).message;
+                      this.status = JSON.parse(result['_body']).status;
+                      // alert(JSON.parse(result['_body']).message);
+                      if (this.status === 'success') {
+                        this.successMsg = JSON.parse(result['_body']).message;
+                        this.http.post("http://localhost/practiceapi/deleteAvailableRideapi.php",rds)
+                        .subscribe(result => {
+                          console.log(result);
+                          this.getAvailableCostumnride();
+                        });
+                      } else if ((this.status === 'failure')) {
+                        this.successMsg = JSON.parse(result['_body']).message;
+                      }
+                    });
+                 
+                }          
+
+            else {
+              this.driverAvailabity = true;
+            }
+
           });
-        } else if ((this.status === 'failure')) {
-          this.successMsg = JSON.parse(result['_body']).message;
-        }
-      });
-   
-  }
+
+      } else {
+        this.driverAvailabity = true;
+      }
+
+    });
+
+
+
+}
+    
 
 }

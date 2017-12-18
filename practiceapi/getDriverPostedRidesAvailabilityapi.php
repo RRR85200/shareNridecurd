@@ -1,6 +1,5 @@
 <?php
 
-
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
@@ -20,38 +19,26 @@ include_once 'includes/ridesfunction.php';
 $database = new Database();
 $db = $database->getConnection();
  
-$rides = new Rides($db);
- 
-//$rides->RideID = $data->RideID;
-//$rides->Carnumber = $data->Carnumber;
-$rides->UserId = $data->user_id;
-$rides->Seats = $data->seats;
-//$rides->AC = $data->AC;
-$rides->DestinationID = $data->destination;
-$rides->Origin = $data->origin;
-//$rides->Status = $data->Status;
-$rides->RideDate = $data->ridedate;
-$rides->UserMobile=$data->userMobile;
-$rides->UserType=$data->user_type;
-$rides->postedBy=$data->RiderName;
-$rides->Price=$data->price;
+$rides = new Rides($db); 
 
- 
-// create the rides
-if($rides->costumnRide_post()){
-    echo '{';
-        echo '"message": "Custom Ride has created Successfully.",';
-		echo '"status": "success"';
-    echo '}';
+$rides->UserId = $data->user_id;
+$rides->RideDate = $data->ridedate;
+//$rides->UserType=$data->user_type;
+
+
+
+if($rides->getDriverPostRidesAvailablity()){
+    // echo '{';
+	// //json_encode($rides));
+        // echo '"message": "Returned Rides Successfully."';
+    // echo '}';
 }
  
 // if unable to create the rides, tell the user
 else{
     echo '{';
-       echo '"message": "unable to request a ride.",';
-		echo '"status": "failure"';
+        echo '"message": "No rides scheduled within next 2 hour."';
     echo '}';
 }
-
 
 ?>

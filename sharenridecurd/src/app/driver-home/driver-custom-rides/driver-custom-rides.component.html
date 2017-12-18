@@ -86,7 +86,7 @@
                                 <div class="col-md-2">
                                     <label for="pricee">Enter Price</label>
                                     <br>
-                                    <input type="number" min="0"  max="50" #eprice name="price" [value]="rds.price">
+                                    <input type="number" min="0"  max="50" #eprice ngModel name="price" >
                                 </div>
 
                                 <div class="col-md-2">
@@ -102,15 +102,23 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="btn btn-group">
-                                        <button class="btn btn-primary" type="submit" *ngIf="rds.user_id!==currentUserID" (click)="acceptRide(rds,eprice.value)">Accept Ride</button>
+                                        <button class="btn btn-primary"  type="submit" [disabled]="eprice.value<=0" (click)="acceptRide(rds,eprice.value)">Accept Ride</button>
+                                      <!-- [disabled]="((eprice.value < 0) && (eprice.value>60))" -->
 
                                     </div>
 
                                 </div>
 
-
+                                    
+                                   
 
                             </div>
+                            <div class="alert alert-danger" *ngIf="eprice.value<0">Hey.!Do you want to give them Money..! Cannot be a negative Price</div>
+                            <div class="alert alert-info" *ngIf="eprice.value>100">Maximum price is 100 ...! Come on..! its Holiday season</div>
+                            <div class="alert alert-danger" *ngIf="driverAvailabity">
+                                Hey..! You cannot Accept ..! U got another ride scheduled within 2 hours Interval of this request ride time...Please check your Current Rides and Posted Rides.
+                            </div>
+                          
                         </div>
                     </div>
                 </td>
