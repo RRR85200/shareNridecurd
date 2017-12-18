@@ -1,0 +1,15 @@
+select * from current_rides where ride_driver_id="124" and ridetime between '2017-12-22 05:15:00' and '2017-12-23 05:15:00'
+
+works
+
+
+this is finall
+
+
+select * from current_rides where ride_driver_id="124" and ridetime between DATE_ADD("2017-12-13 20:47:001", INTERVAL -2 HOUR) and DATE_ADD("2017-12-13 20:47:00", INTERVAL 2 HOUR)
+
+working implment a query
+
+SELECT * FROM `rides_avail` WHERE user_id="130" and userType="Driver" and date between DATE_ADD("2017-12-16 23:44:00 ", INTERVAL -2 HOUR) and DATE_ADD("2017-12-16 23:44:00 ", INTERVAL 2 HOUR)
+
+working for rides_avail.......

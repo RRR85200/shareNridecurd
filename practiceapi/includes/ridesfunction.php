@@ -27,14 +27,11 @@ class Rides{
         $this->conn = $db;
     }
 	
-	function rides_post(){
- 
-	
+function rides_post(){	
 	
     
  $query = "INSERT INTO ". $this->table_name ." (user_id,seats,destination,origin,date,mobile,userType,postedBy,price,carNumber,carModel) VALUES
-  ('".$this->UserId."','".$this->Seats."','".$this->DestinationID."','".$this->Origin."','".$this->RideDate."','".$this->UserMobile."', '".$this->UserType."','".$this->postedBy."','".$this->price."','".$this->carNumber."','".$this->carModel."')";
-				  
+  ('".$this->UserId."','".$this->Seats."','".$this->DestinationID."','".$this->Origin."','".$this->RideDate."','".$this->UserMobile."', '".$this->UserType."','".$this->postedBy."','".$this->price."','".$this->carNumber."','".$this->carModel."')";				  
 				  
 				  
 				  
@@ -86,13 +83,6 @@ function rides_update(){
       $this->RideID=htmlspecialchars(strip_tags($this->RideID));
 	  $this->Seats=htmlspecialchars(strip_tags($this->Seats));
   
-//$this->Status=htmlspecialchars(strip_tags($this->Status));
-		
- 
-    // bind values 
-    	
-	 // print($query);
-	 // exit;
     // execute query
     if($stmt->execute()){
         return true;
@@ -101,7 +91,7 @@ function rides_update(){
     }
 }
 
-// DELETE FROM `rides_avail` WHERE 1
+
 function rides_delete(){
 	$query="DELETE FROM ".$this->table_name." WHERE ride_id=".$this->RideID;
 	 $stmt = $this->conn->prepare($query);
@@ -177,6 +167,32 @@ function costumnridesavail_get(){
  
 }
 
+function getDriverPostRidesAvailablity(){
+	
+
+//SELECT * FROM `rides_avail` WHERE user_id="130" and userType="Driver" and date between DATE_ADD("2017-12-16 23:44:00 ", INTERVAL -2 HOUR) and DATE_ADD("2017-12-16 23:44:00 ", INTERVAL 2 HOUR)
+
+	
+	$query="select * from " . $this->table_name . " WHERE user_id='" .$this->UserId. "'and
+	userType='Driver' and date between DATE_ADD('".$this->RideDate."', INTERVAL -2 HOUR) and DATE_ADD('".$this->RideDate."', INTERVAL 2 HOUR)";
+	
+	 // $this->UserType=htmlspecialchars(strip_tags($this->UserType));      
+    $this->UserId=htmlspecialchars(strip_tags($this->UserId));
+	//$this->Origin=htmlspecialchars(strip_tags($this->Origin));	
+	$this->RideDate=htmlspecialchars(strip_tags($this->RideDate));	
+	
+	
+	  $stmt = $this->conn->prepare( $query );
+
+ 
+    // execute query
+    $stmt->execute();
+ $rows = array();
+ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode($rows);
+return json_encode($rows);
+	
+}
 
 function costumnRide_post(){
 	$query = "INSERT INTO ". $this->table_name ." (user_id,seats,destination,origin,date,mobile,userType,postedBy,price) VALUES

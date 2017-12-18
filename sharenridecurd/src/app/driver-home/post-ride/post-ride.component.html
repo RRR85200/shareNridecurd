@@ -274,6 +274,9 @@
       {{successMsg}}
     </div>
   </div>
+  <div class="alert alert-danger" *ngIf=" postRideStatus">
+      Hey..! You got a ride scheduled within 2 hours Interval of selected date...Please check your Current Rides and Posted Rides.
+  </div>
 
   <form [formGroup]="postRideForm" (ngSubmit)="createRide()">
 
