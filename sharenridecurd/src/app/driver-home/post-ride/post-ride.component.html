@@ -362,10 +362,10 @@
     <div class="alert alert-danger" *ngIf="this.postRideForm.get('price').hasError('minMaxPrice') && this.postRideForm.get('price').touched">Enter valid price between 1 and 70$</div>
     <div class="alert alert-danger" *ngIf="this.postRideForm.get('seats').hasError('minMax') && this.postRideForm.get('seats').touched">Enter Seats between 1 and 6</div>
     <!-- <div class="alert alert-danger" *ngIf="timeselected < timetoday" > Hey..! Cannot Travel back in time..!</div> -->
-    <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateRideDate') && this.postRideForm.get('date').touched">Enter valid date</div>
-    <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').touched && this.postRideForm.get('date').invalid">
-        <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateYear') && this.postRideForm.get('date').touched">Hey Time travel is Not possible</div>
- Date should be Greater than today...!</div>
+    <!-- <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateRideDate') && this.postRideForm.get('date').touched">Enter valid date</div>
+    <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').touched && this.postRideForm.get('date').invalid">       
+ Date should be Greater than today...!</div> -->
+ <div class="alert alert-danger" *ngIf="this.postRideForm.get('date').hasError('validateYear') && this.postRideForm.get('date').touched">Hey Time travel is Not possible..! Enter a valid date</div>
 
   </form>
 
